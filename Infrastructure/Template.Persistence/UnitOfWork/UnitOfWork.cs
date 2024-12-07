@@ -1,9 +1,10 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Template.Persistence.Contexts;
 
 namespace Template.Persistence.UnitOfWork;
 
-public class UnitOfWork(DbContext context) : IUnitOfWork
+public class UnitOfWork(TemplateDbContext context) : IUnitOfWork
 {
     public void Commit()
     {

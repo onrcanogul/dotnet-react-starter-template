@@ -11,13 +11,9 @@ public static class ServiceRegistration
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddDbContext<TemplateDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")));
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
-        DbRegistration(services, configuration);
         return services;
     }
-    private static void DbRegistration(IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddDbContext<TemplateDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")));
-    } 
 }

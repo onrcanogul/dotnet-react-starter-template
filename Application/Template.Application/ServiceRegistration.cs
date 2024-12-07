@@ -3,7 +3,7 @@ using Template.Application.src;
 using Template.Application.src.Abstraction;
 using Template.Application.src.Abstraction.Base;
 using Template.Application.src.Base;
-using Template.Application.src.Base.Mapping;
+using Template.Application.src.Mappings;
 
 namespace Template.Application;
 
@@ -20,7 +20,7 @@ public static class ServiceRegistration
     }
     private static void AddAutoMapper(IServiceCollection services)
     {
-        services.AddAutoMapper(typeof(BaseMapping).Assembly);
+        services.AddAutoMapper(typeof(ProductMapper).Assembly);
     }
     
 }

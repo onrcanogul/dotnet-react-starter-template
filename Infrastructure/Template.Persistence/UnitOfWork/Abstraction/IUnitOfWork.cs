@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-
 namespace Template.Persistence.UnitOfWork;
 
 public interface IUnitOfWork

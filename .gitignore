@@ -1,0 +1,21 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+
+# Rider settings
+.idea/
+*.sln.iml
+
+# Visual Studio Code settings
+.vscode/
+
+# Dependency directories
+node_modules/
+packages/
+
+# Logs
+*.log
