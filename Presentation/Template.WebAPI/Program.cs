@@ -1,6 +1,7 @@
 using Template.Application;
 using Template.Infrastructure;
 using Template.Persistence;
+using Template.WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
 builder.Services.AddPersistenceServices(builder.Configuration)
+    .AddOpenTelemetryServices()
     .AddApplicationServices()
     .AddInfrastructureServices(builder.Configuration);
 
