@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Template.Common.Models.Dtos;
 
 namespace Template.Application.src.Abstraction.Dto;

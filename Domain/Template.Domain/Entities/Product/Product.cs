@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Template.Common.Models.Entities;
 
 namespace Template.Domain.Entities;

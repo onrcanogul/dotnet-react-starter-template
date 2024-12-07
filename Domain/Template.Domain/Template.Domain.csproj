@@ -10,4 +10,8 @@
       <ProjectReference Include="..\..\Infrastructure\Template.Common\Template.Common.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="obj\Debug\net9.0\" />
+    </ItemGroup>
+
 </Project>
