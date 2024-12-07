@@ -1,0 +1,487 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/onurcanogul/RiderProjects/Template/Presentation/Template.WebAPI/Template.WebAPI.csproj": {}
+  },
+  "projects": {
+    "/Users/onurcanogul/RiderProjects/Template/Application/Template.Application.Abstraction/Template.Application.Abstraction.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/onurcanogul/RiderProjects/Template/Application/Template.Application.Abstraction/Template.Application.Abstraction.csproj",
+        "projectName": "Template.Application.Abstraction",
+        "projectPath": "/Users/onurcanogul/RiderProjects/Template/Application/Template.Application.Abstraction/Template.Application.Abstraction.csproj",
+        "packagesPath": "/Users/onurcanogul/.nuget/packages/",
+        "outputPath": "/Users/onurcanogul/RiderProjects/Template/Application/Template.Application.Abstraction/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/onurcanogul/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/Users/onurcanogul/RiderProjects/Template/Domain/Template.Domain/Template.Domain.csproj": {
+                "projectPath": "/Users/onurcanogul/RiderProjects/Template/Domain/Template.Domain/Template.Domain.csproj"
+              },
+              "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Common/Template.Common.csproj": {
+                "projectPath": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Common/Template.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/onurcanogul/RiderProjects/Template/Application/Template.Application/Template.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/onurcanogul/RiderProjects/Template/Application/Template.Application/Template.Application.csproj",
+        "projectName": "Template.Application",
+        "projectPath": "/Users/onurcanogul/RiderProjects/Template/Application/Template.Application/Template.Application.csproj",
+        "packagesPath": "/Users/onurcanogul/.nuget/packages/",
+        "outputPath": "/Users/onurcanogul/RiderProjects/Template/Application/Template.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/onurcanogul/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/Users/onurcanogul/RiderProjects/Template/Application/Template.Application.Abstraction/Template.Application.Abstraction.csproj": {
+                "projectPath": "/Users/onurcanogul/RiderProjects/Template/Application/Template.Application.Abstraction/Template.Application.Abstraction.csproj"
+              },
+              "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Persistence/Template.Persistence.csproj": {
+                "projectPath": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Persistence/Template.Persistence.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/onurcanogul/RiderProjects/Template/Domain/Template.Domain/Template.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/onurcanogul/RiderProjects/Template/Domain/Template.Domain/Template.Domain.csproj",
+        "projectName": "Template.Domain",
+        "projectPath": "/Users/onurcanogul/RiderProjects/Template/Domain/Template.Domain/Template.Domain.csproj",
+        "packagesPath": "/Users/onurcanogul/.nuget/packages/",
+        "outputPath": "/Users/onurcanogul/RiderProjects/Template/Domain/Template.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/onurcanogul/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Common/Template.Common.csproj": {
+                "projectPath": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Common/Template.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Common/Template.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Common/Template.Common.csproj",
+        "projectName": "Template.Common",
+        "projectPath": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Common/Template.Common.csproj",
+        "packagesPath": "/Users/onurcanogul/.nuget/packages/",
+        "outputPath": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Common/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/onurcanogul/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Infrastructure/Template.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Infrastructure/Template.Infrastructure.csproj",
+        "projectName": "Template.Infrastructure",
+        "projectPath": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Infrastructure/Template.Infrastructure.csproj",
+        "packagesPath": "/Users/onurcanogul/.nuget/packages/",
+        "outputPath": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/onurcanogul/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Persistence/Template.Persistence.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Persistence/Template.Persistence.csproj",
+        "projectName": "Template.Persistence",
+        "projectPath": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Persistence/Template.Persistence.csproj",
+        "packagesPath": "/Users/onurcanogul/.nuget/packages/",
+        "outputPath": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Persistence/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/onurcanogul/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/Users/onurcanogul/RiderProjects/Template/Domain/Template.Domain/Template.Domain.csproj": {
+                "projectPath": "/Users/onurcanogul/RiderProjects/Template/Domain/Template.Domain/Template.Domain.csproj"
+              },
+              "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Common/Template.Common.csproj": {
+                "projectPath": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Common/Template.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/onurcanogul/RiderProjects/Template/Presentation/Template.WebAPI/Template.WebAPI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/onurcanogul/RiderProjects/Template/Presentation/Template.WebAPI/Template.WebAPI.csproj",
+        "projectName": "Template.WebAPI",
+        "projectPath": "/Users/onurcanogul/RiderProjects/Template/Presentation/Template.WebAPI/Template.WebAPI.csproj",
+        "packagesPath": "/Users/onurcanogul/.nuget/packages/",
+        "outputPath": "/Users/onurcanogul/RiderProjects/Template/Presentation/Template.WebAPI/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/onurcanogul/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/Users/onurcanogul/RiderProjects/Template/Application/Template.Application.Abstraction/Template.Application.Abstraction.csproj": {
+                "projectPath": "/Users/onurcanogul/RiderProjects/Template/Application/Template.Application.Abstraction/Template.Application.Abstraction.csproj"
+              },
+              "/Users/onurcanogul/RiderProjects/Template/Application/Template.Application/Template.Application.csproj": {
+                "projectPath": "/Users/onurcanogul/RiderProjects/Template/Application/Template.Application/Template.Application.csproj"
+              },
+              "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Common/Template.Common.csproj": {
+                "projectPath": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Common/Template.Common.csproj"
+              },
+              "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Infrastructure/Template.Infrastructure.csproj": {
+                "projectPath": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Infrastructure/Template.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "3TlGaIEeI1c=",
+  "success": true,
+  "projectFilePath": "/Users/onurcanogul/RiderProjects/Template/Infrastructure/Template.Infrastructure/Template.Infrastructure.csproj",
+  "expectedPackageFiles": [
+    "/Users/onurcanogul/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/9.0.0/microsoft.extensions.dependencyinjection.abstractions.9.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
