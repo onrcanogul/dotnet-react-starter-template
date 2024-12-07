@@ -1,14 +1,36 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{FD955330-6B05-4C5B-87DB-C02D7F275388}"
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Solution Configuration
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.WebAPI", "Presentation/Template.WebAPI/Template.WebAPI.csproj", "{FD955330-6B05-4C5B-87DB-C02D7F275388}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Application", "Application/Template.Application/Template.Application.csproj", "{A1B2C3D4-E5F6-789A-BCDE-123456789ABC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Application.Abstraction", "Application/Template.Application.Abstraction/Template.Application.Abstraction.csproj", "{00000000-0000-0000-0000-000000000000}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Domain", "Domain/Template.Domain/Template.Domain.csproj", "{00000000-0000-0000-0000-000000000000}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Common", "Infrastructure/Template.Common/Template.Common.csproj", "{00000000-0000-0000-0000-000000000000}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Infrastructure", "Infrastructure/Template.Infrastructure/Template.Infrastructure.csproj", "{00000000-0000-0000-0000-000000000000}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Persistence", "Infrastructure/Template.Persistence/Template.Persistence.csproj", "{00000000-0000-0000-0000-000000000000}"
 EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-	EndGlobalSection
+				GlobalSection(SolutionConfigurationPlatforms) = preSolution
+								Debug|Any CPU = Debug|Any CPU
+								Release|Any CPU = Release|Any CPU
+				EndGlobalSection
+				GlobalSection(ProjectConfigurationPlatforms) = postSolution
+								{FD955330-6B05-4C5B-87DB-C02D7F275388}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+								{FD955330-6B05-4C5B-87DB-C02D7F275388}.Debug|Any CPU.Build.0 = Debug|Any CPU
+								{FD955330-6B05-4C5B-87DB-C02D7F275388}.Release|Any CPU.ActiveCfg = Release|Any CPU
+								{FD955330-6B05-4C5B-87DB-C02D7F275388}.Release|Any CPU.Build.0 = Release|Any CPU
+								{A1B2C3D4-E5F6-789A-BCDE-123456789ABC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+								{A1B2C3D4-E5F6-789A-BCDE-123456789ABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+								{A1B2C3D4-E5F6-789A-BCDE-123456789ABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+								{A1B2C3D4-E5F6-789A-BCDE-123456789ABC}.Release|Any CPU.Build.0 = Release|Any CPU
+					{00000000-0000-0000-0000-000000000000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+					{00000000-0000-0000-0000-000000000000}.Debug|Any CPU.Build.0 = Debug|Any CPU
+				EndGlobalSection
+				GlobalSection(NestedProjects) = preSolution
+				EndGlobalSection
 EndGlobal
