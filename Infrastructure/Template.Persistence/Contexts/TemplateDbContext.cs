@@ -1,14 +1,13 @@
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Template.Common.Models.Entities;
 using Template.Domain.Entities;
+using Template.Domain.Entities.Identity;
 
 namespace Template.Persistence.Contexts;
 
-public class TemplateDbContext(DbContextOptions<TemplateDbContext> options) : DbContext(options)
+public class TemplateDbContext(DbContextOptions<TemplateDbContext> options, IHttpContextAccessor httpContextAccessor) : IdentityDbContext<User,Role,Guid>(options)
 {
     public DbSet<Product> Products { get; set; }
     
@@ -22,6 +21,7 @@ public class TemplateDbContext(DbContextOptions<TemplateDbContext> options) : Db
         AuditingEntities();
         return base.SaveChanges();
     }
+    
     private void AuditingEntities()
     {
         var dataList = ChangeTracker.Entries<BaseEntity>().ToList();
@@ -33,12 +33,16 @@ public class TemplateDbContext(DbContextOptions<TemplateDbContext> options) : Db
             {
                 case EntityState.Modified:
                     baseEntity.UpdatedDate = DateTime.UtcNow;
+                    baseEntity.UpdatedBy = GetCurrentUsername();
                     break;
                 case EntityState.Added:
                     baseEntity.CreatedDate = DateTime.UtcNow;
                     baseEntity.UpdatedDate = DateTime.UtcNow;
+                    baseEntity.CreatedBy = GetCurrentUsername();
                     break;
             }
         }
     }
+    private string? GetCurrentUsername()
+        => httpContextAccessor.HttpContext?.User.Identity!.Name;
 }

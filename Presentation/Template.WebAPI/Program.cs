@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
 builder.Services.AddPersistenceServices(builder.Configuration)
     .AddApplicationServices()
-    .AddInfrastructureServices();
+    .AddInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
 
