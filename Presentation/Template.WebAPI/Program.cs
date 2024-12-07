@@ -1,3 +1,4 @@
+using Serilog;
 using Template.Application;
 using Template.Infrastructure;
 using Template.Persistence;
@@ -14,8 +15,9 @@ builder.Services.AddOpenApi();
 builder.Services.AddPersistenceServices(builder.Configuration)
     .AddOpenTelemetryServices()
     .AddApplicationServices()
-    .AddInfrastructureServices(builder.Configuration);
-
+    .AddInfrastructureServices(builder.Configuration)
+    .AddSerilogServices(builder.Configuration);
+builder.Host.UseSerilog();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
