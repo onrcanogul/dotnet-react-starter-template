@@ -7,7 +7,6 @@ using Template.WebAPI.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerServices()
@@ -26,6 +25,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.UseSwaggerMiddleware();
 }
+app.UseInfrastructureServices();
 app.UseRateLimiter();
 app.UseHttpsRedirection();
 app.MapControllers();

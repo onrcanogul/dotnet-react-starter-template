@@ -2,6 +2,7 @@ using System.ComponentModel.Design;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -28,6 +29,13 @@ public static class ServiceRegistration
                 NameClaimType = ClaimTypes.Name,      
             };
         });
+        services.AddExceptionHandler<Template.Infrastructure.Middlewares.ExceptionHandler>();
         return services;
+    }
+    
+    public static IApplicationBuilder UseInfrastructureServices(this IApplicationBuilder app)
+    {
+        app.UseExceptionHandler(options => { });
+        return app;
     }
 }
