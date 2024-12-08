@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.Extensions.Localization;
 using Template.Application.src.Abstraction;
 using Template.Application.src.Abstraction.Dto;
 using Template.Application.src.Base;
@@ -8,8 +9,9 @@ using Template.Persistence.UnitOfWork;
 
 namespace Template.Application.src;
 
-public class ProductService(IRepository<Product> repository, IMapper mapper, IUnitOfWork unitOfWork) 
-    : CrudService<Product, ProductDto>(repository, mapper, unitOfWork),IProductService
+public class ProductService
+    (IRepository<Product> repository, IMapper mapper, IUnitOfWork unitOfWork, IStringLocalizer localizer) 
+    : CrudService<Product, ProductDto>(repository, mapper, unitOfWork, localizer),IProductService
 {
     
 }

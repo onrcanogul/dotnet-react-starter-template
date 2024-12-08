@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using Template.Application.src.Abstraction.Base;
 using Template.Common.Exceptions;
 using Template.Common.Models.Dtos;
@@ -16,7 +17,7 @@ using Template.Persistence.UnitOfWork;
 
 namespace Template.Application.src.Base;
 
-public class CrudService<T, TDto>(IRepository<T> repository, IMapper mapper, IUnitOfWork unitOfWork) //dependency injections
+public class CrudService<T, TDto>(IRepository<T> repository, IMapper mapper, IUnitOfWork unitOfWork, IStringLocalizer localizer) //dependency injections
     : ICrudService<T, TDto> //implementations
     where T : BaseEntity where TDto : BaseDto //constraints
 { 
@@ -31,7 +32,7 @@ public class CrudService<T, TDto>(IRepository<T> repository, IMapper mapper, IUn
         bool disableTracking = true)
     {
         var entity = await repository.GetFirstOrDefaultAsync(predicate, orderBy, includeProperties, disableTracking);
-        if(entity == null) throw new NotFoundException($"{typeof(T).Name} not found");
+        if(entity == null) throw new NotFoundException(localizer["NotFound"]);
         var dto = mapper.Map<TDto>(entity);
         return Response<TDto>.Success(dto, StatusCodes.Status200OK);
     }
@@ -52,7 +53,7 @@ public class CrudService<T, TDto>(IRepository<T> repository, IMapper mapper, IUn
     public async Task<Response<TDto>> UpdateAsync(TDto dto)
     {
         var entity = await repository.GetFirstOrDefaultAsync(x => x.Id == dto.Id);
-        if (entity == null) throw new NotFoundException($"{typeof(T).Name} not found");
+        if (entity == null) throw new NotFoundException(localizer["NotFound"]);
         entity = mapper.Map(dto, entity);
         repository.Update(entity);
         await unitOfWork.CommitAsync();
@@ -61,7 +62,7 @@ public class CrudService<T, TDto>(IRepository<T> repository, IMapper mapper, IUn
     public async Task<Response<NoContent>> DeleteAsync(Guid id)
     {
         var entity = await repository.GetFirstOrDefaultAsync(x => x.Id == id);
-        if(entity == null) throw new NotFoundException($"{typeof(T).Name} not found");
+        if(entity == null) throw new NotFoundException(localizer["NotFound"]);
         repository.Delete(entity);
         await unitOfWork.CommitAsync();
         return Response<NoContent>.Success(StatusCodes.Status200OK);

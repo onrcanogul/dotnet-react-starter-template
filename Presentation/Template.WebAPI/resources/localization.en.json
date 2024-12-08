@@ -1,0 +1,7 @@
+{
+  "Hello": "Hello",
+  "Welcome": "Welcome",
+  "NotFound": "Resource Not Found",
+  "UserNotFound": "User Not Found",
+  "RegisterFailure": "Error occured while registering"
+}

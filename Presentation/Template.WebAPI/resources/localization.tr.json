@@ -1,0 +1,7 @@
+{
+  "Hello": "Merhaba",
+  "Welcome": "Hoş geldiniz",
+  "NotFound": "Veri bulunamadı",
+  "UserNotFound": "Kullanıcı bulunamadı",
+  "RegisterFailure": "Kayıt olurken bir hata meydana geldi"
+}

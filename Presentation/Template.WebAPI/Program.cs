@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerServices()
+    .AddLocalizationServices()
     .AddCorsServices()
     .AddJsonSerializerServices()
     .AddRateLimiterServices()
@@ -27,6 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerMiddleware();
 }
 app.UseInfrastructureServices();
+app.UseLocalizationServices();
 app.UseCorsServices();
 app.UseRateLimiter();
 app.UseHttpsRedirection();
