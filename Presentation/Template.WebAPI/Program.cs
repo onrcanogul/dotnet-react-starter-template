@@ -27,10 +27,11 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.UseSwaggerMiddleware();
 }
-app.UseInfrastructureServices();
 app.UseLocalizationServices();
+app.UseInfrastructureServices();
 app.UseCorsServices();
 app.UseRateLimiter();
 app.UseHttpsRedirection();
+app.UseRouting();
 app.MapControllers();
 app.Run();

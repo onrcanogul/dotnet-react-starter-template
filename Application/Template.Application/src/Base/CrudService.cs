@@ -32,7 +32,7 @@ public class CrudService<T, TDto>(IRepository<T> repository, IMapper mapper, IUn
         bool disableTracking = true)
     {
         var entity = await repository.GetFirstOrDefaultAsync(predicate, orderBy, includeProperties, disableTracking);
-        if(entity == null) throw new NotFoundException(localizer["NotFound"]);
+        if(entity == null) throw new NotFoundException(localizer["NotFound"].Value);
         var dto = mapper.Map<TDto>(entity);
         return Response<TDto>.Success(dto, StatusCodes.Status200OK);
     }
@@ -53,7 +53,7 @@ public class CrudService<T, TDto>(IRepository<T> repository, IMapper mapper, IUn
     public async Task<Response<TDto>> UpdateAsync(TDto dto)
     {
         var entity = await repository.GetFirstOrDefaultAsync(x => x.Id == dto.Id);
-        if (entity == null) throw new NotFoundException(localizer["NotFound"]);
+        if (entity == null) throw new NotFoundException(localizer["NotFound"].Value);
         entity = mapper.Map(dto, entity);
         repository.Update(entity);
         await unitOfWork.CommitAsync();
@@ -62,7 +62,7 @@ public class CrudService<T, TDto>(IRepository<T> repository, IMapper mapper, IUn
     public async Task<Response<NoContent>> DeleteAsync(Guid id)
     {
         var entity = await repository.GetFirstOrDefaultAsync(x => x.Id == id);
-        if(entity == null) throw new NotFoundException(localizer["NotFound"]);
+        if(entity == null) throw new NotFoundException(localizer["NotFound"].Value);
         repository.Delete(entity);
         await unitOfWork.CommitAsync();
         return Response<NoContent>.Success(StatusCodes.Status200OK);

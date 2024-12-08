@@ -33,6 +33,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="helpers\" />
       <Folder Include="obj\Debug\net9.0\" />
     </ItemGroup>
 

@@ -1,15 +1,18 @@
 using System.Text.Json;
 using Microsoft.Extensions.Localization;
 
-namespace Template.Infrastructure.Localization;
+namespace Template.WebAPI.Localization;
 
 public class JsonStringLocalizer : IStringLocalizer
 {
     private readonly Dictionary<string, string> _localization;
-
-    public JsonStringLocalizer(string filePath)
+    public JsonStringLocalizer(string path)
     {
-        _localization = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(filePath));
+        if (!File.Exists(path))
+            throw new FileNotFoundException($"Localization file not found: {path}");
+
+        var jsonContent = File.ReadAllText(path);
+        _localization = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonContent) ?? new Dictionary<string, string>();
     }
     public LocalizedString this[string name]
     {

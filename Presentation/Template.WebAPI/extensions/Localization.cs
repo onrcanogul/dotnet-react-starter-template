@@ -1,7 +1,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Localization;
-using Template.Infrastructure.Localization;
+using Template.WebAPI.Localization;
 
 namespace Template.WebAPI.Extensions;
 
@@ -9,9 +9,17 @@ public static class Localization
 {
     public static IServiceCollection AddLocalizationServices(this IServiceCollection services)
     {
-        services.AddLocalization(options => options.ResourcesPath = "resources");
-        services.AddSingleton<IStringLocalizerFactory>(new JsonStringLocalizerFactory("resources"));
-        services.AddSingleton<IStringLocalizer, JsonStringLocalizer>();
+        services.AddLocalization(options => options.ResourcesPath = "resources/");
+        services.AddSingleton<IStringLocalizerFactory>(sp =>
+        {
+            var resourcesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "resources/");
+            return new JsonStringLocalizerFactory(resourcesPath);
+        });
+        services.AddSingleton<IStringLocalizer>(sp =>
+        {
+            var factory = sp.GetRequiredService<IStringLocalizerFactory>();
+            return factory.Create(typeof(object));
+        });
         return services;
     }
     public static IApplicationBuilder UseLocalizationServices(this IApplicationBuilder app)

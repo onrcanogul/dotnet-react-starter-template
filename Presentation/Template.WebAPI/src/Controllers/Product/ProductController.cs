@@ -1,13 +1,14 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Template.Application.src.Abstraction;
 using Template.Application.src.Abstraction.Dto;
 using Template.WebAPI.Controllers.Base;
 
 namespace Template.WebAPI.Controllers;
 
-public class ProductController(IProductService service) : BaseController
+public class ProductController(IProductService service, IStringLocalizer localizer) : BaseController
 {
     [HttpGet]
     public async Task<IActionResult> Get()

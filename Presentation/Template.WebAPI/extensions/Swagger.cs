@@ -8,7 +8,7 @@ public static class Swagger
         services.AddSwaggerGen();
         return services;
     }
-    public static WebApplication UseSwaggerMiddleware(this WebApplication app)
+    public static IApplicationBuilder UseSwaggerMiddleware(this IApplicationBuilder app)
     {
         app.UseSwagger();
         app.UseSwaggerUI();
