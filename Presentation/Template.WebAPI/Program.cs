@@ -10,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerServices()
+    .AddCorsServices()
+    .AddJsonSerializerServices()
     .AddRateLimiterServices()
     .AddPersistenceServices(builder.Configuration)
     .AddOpenTelemetryServices()
@@ -18,7 +20,6 @@ builder.Services.AddSwaggerServices()
     .AddSerilogServices(builder.Configuration);
 builder.Host.UseSerilog();
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -26,6 +27,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerMiddleware();
 }
 app.UseInfrastructureServices();
+app.UseCorsServices();
 app.UseRateLimiter();
 app.UseHttpsRedirection();
 app.MapControllers();

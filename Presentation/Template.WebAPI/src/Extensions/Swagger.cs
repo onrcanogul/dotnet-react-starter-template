@@ -14,5 +14,4 @@ public static class Swagger
         app.UseSwaggerUI();
         return app;
     }
-    
 }

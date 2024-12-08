@@ -23,8 +23,7 @@ public static class Serilog
                 tableName: "logs", // table name
                 columnOptions: columnWriters, // columns
                 needAutoCreateTable: true // auto create
-            )
-            .CreateLogger();
+            ).CreateLogger();
         return services;
     }
 }

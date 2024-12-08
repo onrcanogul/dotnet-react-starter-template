@@ -13,11 +13,7 @@ public static class Versioning
             options.AssumeDefaultVersionWhenUnspecified = true; 
             options.ReportApiVersions = true;
         });
-        services.AddApiVersioning(options =>
-        {
-            options.ApiVersionReader = new HeaderApiVersionReader("x-api-version");
-        });
-
+        services.AddApiVersioning(options => options.ApiVersionReader = new HeaderApiVersionReader("x-api-version"));
         return services;
     }
     

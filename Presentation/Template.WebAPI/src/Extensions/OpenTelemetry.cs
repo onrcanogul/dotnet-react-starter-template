@@ -25,7 +25,6 @@ public static class OpenTelemetry
                     .AddRuntimeInstrumentation() // clr runtime metrics
                     .AddConsoleExporter(); // log metrics to console
             });
-        
         return services;
     }
 }
