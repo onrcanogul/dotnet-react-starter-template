@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerServices()
+    .AddRateLimiterServices()
     .AddPersistenceServices(builder.Configuration)
     .AddOpenTelemetryServices()
     .AddApplicationServices()
@@ -25,6 +26,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.UseSwaggerMiddleware();
 }
+app.UseRateLimiter();
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();
