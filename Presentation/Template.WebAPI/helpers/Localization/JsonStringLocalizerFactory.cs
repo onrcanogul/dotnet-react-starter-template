@@ -16,7 +16,7 @@ public class JsonStringLocalizerFactory : IStringLocalizerFactory
         var culture = CultureInfo.CurrentCulture.Name;
         var filePath = Path.Combine(_resourcesPath, $"localization.{culture}.json");
         if (!File.Exists(filePath))
-            filePath = Path.Combine(_resourcesPath, "localization.en.json");
+            filePath = Path.Combine(_resourcesPath, "localization.en-US.json");
         return new JsonStringLocalizer(filePath);
     }
 
