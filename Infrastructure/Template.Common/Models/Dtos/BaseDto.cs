@@ -1,5 +1,3 @@
-using System;
-
 namespace Template.Common.Models.Dtos;
 
 public abstract class BaseDto

@@ -6,9 +6,9 @@ using Template.Domain.Entities;
 
 namespace Template.Application.src.Mappings;
 
-public class ProductMapper : Profile
+public class ProductMapping : Profile
 {
-    public ProductMapper()
+    public ProductMapping()
     {
         CreateMap<Product, ProductDto>()
             .IncludeBase<BaseEntity, BaseDto>();

@@ -1,5 +1,3 @@
-using System;
-
 namespace Template.Common.Models.Entities;
 
 public abstract class BaseEntity

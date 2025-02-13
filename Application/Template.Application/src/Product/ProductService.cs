@@ -10,8 +10,8 @@ using Template.Persistence.UnitOfWork;
 namespace Template.Application.src;
 
 public class ProductService
-    (IRepository<Product> repository, IMapper mapper, IUnitOfWork unitOfWork, IStringLocalizer localizer) 
-    : CrudService<Product, ProductDto>(repository, mapper, unitOfWork, localizer),IProductService
+    (IRepository<Product> repository, IMapper mapper, IUnitOfWork unitOfWork, IStringLocalizer localize) 
+    : CrudService<Product, ProductDto>(repository, mapper, unitOfWork, localize),IProductService
 {
     
 }

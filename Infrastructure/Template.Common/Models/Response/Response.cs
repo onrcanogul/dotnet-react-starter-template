@@ -1,27 +1,43 @@
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Template.Common.Models.Response;
 
-public class Response<T>
+public class ServiceResponse<T> : ServiceResponse
 {
     public T? Data { get; private set; }
-    public List<string> Errors { get; set; } = new();
-    [JsonIgnore]
-    public int StatusCode { get; private set; }
-    [JsonIgnore]
-    public bool IsSuccessful { get; private set; }
 
-    //static factory methods
-    public static Response<T> Success(T data, int statusCode)
+    private ServiceResponse() { }
+
+    public static ServiceResponse<T> Success(T data, int statusCode)
         => new() { Data = data, StatusCode = statusCode, IsSuccessful = true };
 
-    public static Response<NoContent> Success(int statusCode)
-        => new() { StatusCode = statusCode, Data = default, IsSuccessful = true };
+    public static ServiceResponse<NoContent> Success(int statusCode)
+        => new() { StatusCode = statusCode, IsSuccessful = true };
 
-    public static Response<T> Failure(List<string> errors, int statusCode)
+    public static ServiceResponse<T> Failure(List<string> errors, int statusCode)
         => new() { Errors = errors, StatusCode = statusCode, IsSuccessful = false };
 
-    public static Response<T> Failure(string error, int statusCode)
-        => new() { Errors = new() { error }, StatusCode = statusCode, IsSuccessful = false };
+    public static ServiceResponse<T> Failure(string error, int statusCode)
+        => new() { Errors = [error], StatusCode = statusCode, IsSuccessful = false };
+}
+public class ServiceResponse
+{
+    public List<string> Errors { get; set; } = new();
+
+    [JsonIgnore]
+    public int StatusCode { get; protected set; }
+
+    [JsonIgnore]
+    public bool IsSuccessful { get; protected set; }
+
+    protected ServiceResponse() { }
+
+    public static ServiceResponse Success(int statusCode)
+        => new() { StatusCode = statusCode, IsSuccessful = true };
+
+    public static ServiceResponse Failure(List<string> errors, int statusCode)
+        => new() { Errors = errors, StatusCode = statusCode, IsSuccessful = false };
+
+    public static ServiceResponse Failure(string error, int statusCode)
+        => new() { Errors = [error], StatusCode = statusCode, IsSuccessful = false };
 }

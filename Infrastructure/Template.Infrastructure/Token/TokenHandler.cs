@@ -22,6 +22,7 @@ public class TokenHandler(IConfiguration configuration) : ITokenHandler
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new("name", user.UserName!),
             new("Id", user.Id.ToString())
+            //add more claims into jwt token -> https://jwt.io/
         };
         JwtSecurityToken jwtSecurityToken = new(
             issuer: configuration["Token:Issuer"],

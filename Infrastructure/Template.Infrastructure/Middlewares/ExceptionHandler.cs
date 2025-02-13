@@ -19,7 +19,7 @@ public class ExceptionHandler : IExceptionHandler
             _ => 500
         };
 
-        var response = Response<NoContent>.Failure(exception.Message, httpContext.Response.StatusCode);
+        var response = ServiceResponse.Failure(exception.Message, httpContext.Response.StatusCode);
         await httpContext.Response.WriteAsJsonAsync(response, cancellationToken);
         return true;
     }

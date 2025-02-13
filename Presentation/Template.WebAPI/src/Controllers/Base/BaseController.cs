@@ -7,6 +7,9 @@ namespace Template.WebAPI.Controllers.Base;
 [ApiController]
 public class BaseController : ControllerBase
 {
-    protected static IActionResult ApiResult<T>(Response<T> response)
+    protected static IActionResult ApiResult<T>(ServiceResponse<T> response)
+        => new ObjectResult(response) { StatusCode = response.StatusCode };
+
+    protected static IActionResult ApiResult(ServiceResponse response)
         => new ObjectResult(response) { StatusCode = response.StatusCode };
 }

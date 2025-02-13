@@ -1,7 +1,6 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Localization;
-using Template.WebAPI.Localization;
+using System.Globalization;
 
 namespace Template.WebAPI.Extensions;
 

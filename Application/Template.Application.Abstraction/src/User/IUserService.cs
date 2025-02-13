@@ -6,7 +6,7 @@ namespace Template.Application.Abstraction.src;
 
 public interface IUserService
 {
-    Task<Response<Token>> Login(LoginDto dto);
-    Task<Response<Token>> LoginWithRefreshToken(string refreshToken);
-    Task<Response<NoContent>> Register(UserDto user);
+    Task<ServiceResponse<Token>> Login(LoginDto dto);
+    Task<ServiceResponse<Token>> LoginWithRefreshToken(string refreshToken);
+    Task<ServiceResponse> Register(RegisterDto model);
 }

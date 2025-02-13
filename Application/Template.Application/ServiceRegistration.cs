@@ -12,10 +12,11 @@ public static class ServiceRegistration
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddAutoMapper(typeof(ProductMapper).Assembly);
+        services.AddAutoMapper(typeof(ProductMapping).Assembly);
         services.AddScoped(typeof(ICrudService<,>), typeof(CrudService<,>));
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IUserService, UserService>();
+        //add services -> will use reflection to register all services
         return services;
     }
 }

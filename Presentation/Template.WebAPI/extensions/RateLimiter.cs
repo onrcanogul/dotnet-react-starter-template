@@ -1,4 +1,3 @@
-using System.Net;
 using System.Threading.RateLimiting;
 
 namespace Template.WebAPI.Extensions;

@@ -13,6 +13,9 @@ obj/
 # Visual Studio Code settings
 .vscode/
 
+# Visual Studio settings
+.vs/
+
 # Dependency directories
 node_modules/
 packages/
