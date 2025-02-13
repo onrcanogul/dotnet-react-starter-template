@@ -23,7 +23,7 @@ Ensure you have the following installed before running the project:
 ### **Installation & Setup**
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-repo-url.git
+   git clone https://github.com/onrcanogul/dotnet-webapi-starter-template.git
    cd your-repo-folder
    ```
 
