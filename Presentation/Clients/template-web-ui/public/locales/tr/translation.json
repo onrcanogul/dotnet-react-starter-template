@@ -6,5 +6,8 @@
   "authentication": "Kimlik Doğrulama",
   "home": "Ana Sayfa",
   "about": "Hakkında",
-  "settings": "Ayarlar"
+  "settings": "Ayarlar",
+  "success": "Başarılı",
+  "fail": "Hatalı",
+  "warning": "Uyarı"
 }

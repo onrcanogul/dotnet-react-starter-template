@@ -31,6 +31,7 @@
     "react-dom": "^18.3.1",
     "react-i18next": "^15.4.1",
     "react-router-dom": "^7.2.0",
+    "react-toastify": "^11.0.5",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.5"
   }

@@ -6,5 +6,8 @@
   "authentication": "Authentication",
   "home": "Home",
   "about": "About",
-  "settings": "Settings"
+  "settings": "Settings",
+  "success": "Success",
+  "fail": "Fail",
+  "warning": "Warning"
 }

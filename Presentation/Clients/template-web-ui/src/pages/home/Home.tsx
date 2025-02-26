@@ -10,6 +10,7 @@ import {
   Transition,
   Message,
 } from "semantic-ui-react";
+import ToastrService from "../../utils/toastr";
 
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -80,6 +81,43 @@ const Home: React.FC = () => {
         <Button.Content visible>{t("authentication")}</Button.Content>
         <Button.Content hidden>
           <Icon name="unlock" />
+        </Button.Content>
+      </Button>
+      <br />
+      <Button
+        color="green"
+        size="large"
+        animated="fade"
+        onClick={() => ToastrService.success(t("success"))}
+        style={{ marginTop: "20px" }}
+      >
+        <Button.Content visible>{t("success")}</Button.Content>
+        <Button.Content hidden>
+          <Icon name="check" />
+        </Button.Content>
+      </Button>
+      <Button
+        color="red"
+        size="large"
+        animated="fade"
+        onClick={() => ToastrService.error(t("fail"))}
+        style={{ marginTop: "20px" }}
+      >
+        <Button.Content visible>{t("fail")}</Button.Content>
+        <Button.Content hidden>
+          <Icon name="check" />
+        </Button.Content>
+      </Button>
+      <Button
+        color="yellow"
+        size="large"
+        animated="fade"
+        onClick={() => ToastrService.warning(t("warning"))}
+        style={{ marginTop: "20px" }}
+      >
+        <Button.Content visible>{t("warning")}</Button.Content>
+        <Button.Content hidden>
+          <Icon name="check" />
         </Button.Content>
       </Button>
     </Container>
