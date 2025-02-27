@@ -1,9 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, Container, Icon, Sidebar, Segment } from "semantic-ui-react";
 import theme from "../../../utils/theme";
+import {
+  getCurrentUser,
+  isAuthenticated,
+} from "../../auth/services/auth-services";
 
 const HeaderComponent: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [user, setUser] = useState<{ username: string } | null>(null);
+
+  useEffect(() => {
+    const fetchUser = () => {
+      if (isAuthenticated()) {
+        const currentUser = getCurrentUser();
+        setUser(currentUser);
+      } else {
+        setUser(null);
+      }
+    };
+
+    fetchUser();
+
+    const handleAuthChange = () => fetchUser();
+    window.addEventListener("authChange", handleAuthChange);
+
+    return () => {
+      window.removeEventListener("authChange", handleAuthChange);
+    };
+  }, []);
 
   return (
     <>
@@ -23,7 +48,11 @@ const HeaderComponent: React.FC = () => {
               size="large"
               style={{ color: theme.colors.text }}
             />
-            <span style={{ color: theme.colors.text }}>Template Project</span>
+            <span style={{ color: theme.colors.text }}>
+              {user
+                ? `Template Project - ${user.username}`
+                : "Template Project"}
+            </span>
           </Menu.Item>
 
           <Menu.Item

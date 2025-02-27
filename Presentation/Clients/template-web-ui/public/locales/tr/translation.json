@@ -9,5 +9,13 @@
   "settings": "Ayarlar",
   "success": "Başarılı",
   "fail": "Hatalı",
-  "warning": "Uyarı"
+  "warning": "Uyarı",
+  "register": "Kayıt Ol",
+  "login": "Giriş Yap",
+  "usernameOrEmail": "Kullanıcı Adı veya Email",
+  "fullName": "İsim",
+  "password": "Şifre",
+  "confirmPassword": "Şifre Tekrar",
+  "email": "Email",
+  "username": "Kullanıcı Adı"
 }

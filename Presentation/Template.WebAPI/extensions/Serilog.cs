@@ -7,7 +7,7 @@ public static class Serilog
 {
     public static IServiceCollection AddSerilogServices(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("LoggingDb");
+        var connectionString = configuration.GetConnectionString("PostgreSQL");
         var columnWriters = new Dictionary<string, ColumnWriterBase>
         {
             { "message", new RenderedMessageColumnWriter() },  // log message

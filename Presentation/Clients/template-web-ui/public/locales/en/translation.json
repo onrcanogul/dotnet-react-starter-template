@@ -9,5 +9,13 @@
   "settings": "Settings",
   "success": "Success",
   "fail": "Fail",
-  "warning": "Warning"
+  "warning": "Warning",
+  "register": "Register",
+  "login": "Login",
+  "usernameOrEmail": "Username or Email",
+  "fullName": "Full Name",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "email": "Email",
+  "username": "Username"
 }

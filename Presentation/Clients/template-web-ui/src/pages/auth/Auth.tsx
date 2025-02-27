@@ -12,7 +12,7 @@ const Auth: React.FC = () => {
   };
 
   return (
-    <Container style={{ width: "400px", marginTop: "50px" }}>
+    <Container style={{ width: "400px", marginTop: "100px" }}>
       <motion.div
         key={isLogin ? "login" : "register"}
         initial={{ opacity: 0, x: -50 }}

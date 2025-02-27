@@ -22,6 +22,12 @@ public class TemplateDbContext(DbContextOptions<TemplateDbContext> options, IHtt
         return base.SaveChanges();
     }
     
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
+    }
+    
     private void AuditingEntities()
     {
         var dataList = ChangeTracker.Entries<BaseEntity>().ToList();
@@ -33,12 +39,12 @@ public class TemplateDbContext(DbContextOptions<TemplateDbContext> options, IHtt
             {
                 case EntityState.Modified:
                     baseEntity.UpdatedDate = DateTime.UtcNow;
-                    baseEntity.UpdatedBy = GetCurrentUsername();
+                    baseEntity.UpdatedBy = "oogul";
                     break;
                 case EntityState.Added:
                     baseEntity.CreatedDate = DateTime.UtcNow;
                     baseEntity.UpdatedDate = DateTime.UtcNow;
-                    baseEntity.CreatedBy = GetCurrentUsername();
+                    baseEntity.CreatedBy = "oogul";
                     break;
             }
         }
