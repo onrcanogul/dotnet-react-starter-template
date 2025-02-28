@@ -5,17 +5,31 @@ import HeaderComponent from "./pages/home/components/Header";
 import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import {
-  isAuthenticated,
   loginWithRefreshtoken,
+  logout,
 } from "./pages/auth/services/auth-services";
+import { useDispatch, useSelector } from "react-redux";
+import { checkAuth } from "./features/authSlice";
+import { RootState } from "./store";
 
 function App() {
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+
   useEffect(() => {
-    console.log(isAuthenticated());
-    if (localStorage.getItem("accessToken"))
-      if (!isAuthenticated())
-        loginWithRefreshtoken(localStorage.getItem("refreshToken"));
-  }, []);
+    dispatch(checkAuth());
+    checkLogin();
+  }, [dispatch, isAuthenticated]);
+
+  const checkLogin = async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
+    if (!isAuthenticated && refreshToken) {
+      await loginWithRefreshtoken(refreshToken);
+    }
+  };
+
   return (
     <Router>
       <ToastContainer />

@@ -24,7 +24,7 @@ const Register: React.FC<RegisterProps> = ({ toggleForm }) => {
 
   const handleSubmit = async () => {
     if (formData.password !== formData.confirmPassword) {
-      ToastrService.error(t("passwordMismatch"));
+      ToastrService.warning(t("passwordMismatch"));
       return;
     }
 

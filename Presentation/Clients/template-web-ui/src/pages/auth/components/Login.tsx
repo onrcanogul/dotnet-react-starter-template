@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Segment, Form, Button } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
-import { isAuthenticated, login } from "../services/auth-services";
+import { useAppDispatch } from "../../../hooks";
+import { login } from "../../../features/authSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 
 interface LoginProps {
   toggleForm: () => void;
@@ -11,38 +14,28 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ toggleForm }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+
+  const { loading, isAuthenticated } = useSelector(
+    (state: RootState) => state.auth
+  );
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleLogin = async () => {
-    if (!isAuthenticated) return;
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      const success = await login(emailOrUsername, password);
-      if (success) {
-        setTimeout(() => {
-          navigate("/");
-        }, 1500);
-      } else {
-        setError(t("errorLogin"));
-      }
-    } catch (error) {
-      setError(t("errorLogin"));
-    } finally {
-      setLoading(false);
-    }
+    dispatch(login({ usernameOrEmail: emailOrUsername, password }));
   };
 
   return (
     <Segment raised padded="very" textAlign="center">
       <h2>{t("login")}</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
       <Form>
         <Form.Input
           fluid

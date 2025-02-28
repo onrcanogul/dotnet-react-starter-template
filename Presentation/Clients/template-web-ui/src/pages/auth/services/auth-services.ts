@@ -73,11 +73,9 @@ export const loginWithRefreshtoken = async (refreshToken: string) => {
     const response = await api.post(
       `/user/refresh-token-login/${refreshToken}`
     );
-    ToastrService.success(i18n.t("refreshTokenSuccess"));
     return response.data.data;
   } catch (error) {
     console.error("Refresh token login error:", error);
-    ToastrService.error(i18n.t("refreshTokenError"));
     return null;
   }
 };
@@ -98,7 +96,7 @@ export const register = async (
       password,
       confirmPassword,
     });
-    ToastrService.success(i18n.t("successRegister"));
+    ToastrService.success(i18n.t("registerSuccess"));
     return response.data.data;
   } catch (error) {
     console.log(error);

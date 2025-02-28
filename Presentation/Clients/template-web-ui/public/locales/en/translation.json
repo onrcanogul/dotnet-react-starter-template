@@ -17,5 +17,12 @@
   "password": "Password",
   "confirmPassword": "Confirm Password",
   "email": "Email",
-  "username": "Username"
+  "username": "Username",
+  "loginSuccess": "Login is successful",
+  "loginError": "An error occurred while logging in",
+  "registerSuccess": "Register is successful",
+  "registerError": "An error occurred while registering",
+  "passwordMismatch": "Passwords are missmatch",
+  "noAccount": "Don't have any accounts ?",
+  "alreadyHaveAccount": "Do you already have an account?"
 }

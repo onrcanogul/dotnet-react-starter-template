@@ -23,6 +23,7 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.6.0",
     "framer-motion": "^12.4.7",
     "i18next": "^24.2.2",
     "i18next-browser-languagedetector": "^8.0.4",
@@ -31,6 +32,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.4.1",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.2.0",
     "react-toastify": "^11.0.5",
     "semantic-ui-css": "^2.5.0",

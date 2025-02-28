@@ -17,5 +17,12 @@
   "password": "Şifre",
   "confirmPassword": "Şifre Tekrar",
   "email": "Email",
-  "username": "Kullanıcı Adı"
+  "username": "Kullanıcı Adı",
+  "loginSuccess": "Başarıyla giriş yapıldı",
+  "loginError": "Giriş yaparken hata meydana geldi",
+  "registerSuccess": "Başarıyla kayıt olundu",
+  "registerError": "Kayıt olurken hata meydana geldi",
+  "passwordMismatch": "Şifreler eşleşmiyor",
+  "noAccount": "Bir hesabınız yok mu?",
+  "alreadyHaveAccount": "Zaten bir hesabınız var mı?"
 }
