@@ -25,7 +25,6 @@ export const login = async (usernameOrEmail: string, password: string) => {
 // Check Authentication
 export const isAuthenticated = (): boolean => {
   try {
-    debugger;
     const token = localStorage.getItem("accessToken");
     if (!token) return false;
 
@@ -46,7 +45,6 @@ export const getCurrentUser = () => {
     if (!token) return null;
 
     const decoded: DecodedToken = jwtDecode<DecodedToken>(token);
-    console.log(decoded);
     return { userId: decoded.userId, username: decoded.name };
   } catch (error) {
     console.error("Error decoding token:", error);
@@ -98,7 +96,6 @@ export const register = async (
     ToastrService.success(i18n.t("registerSuccess"));
     return response.data.data;
   } catch (error) {
-    console.log(error);
     console.error("Register error:", error);
     ToastrService.error(error.response.data.errors[0]);
     return null;
