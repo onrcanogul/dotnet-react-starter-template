@@ -25,8 +25,12 @@ function App() {
 
   const checkLogin = async () => {
     const refreshToken = localStorage.getItem("refreshToken");
-    if (!isAuthenticated && refreshToken) {
-      await loginWithRefreshtoken(refreshToken);
+    if (!isAuthenticated) {
+      const isSuccess = await loginWithRefreshtoken(refreshToken);
+      if (!isSuccess) {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+      }
     }
   };
 

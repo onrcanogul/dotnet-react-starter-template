@@ -57,7 +57,6 @@ export const getCurrentUser = () => {
 // Logout
 export const logout = async () => {
   try {
-    await api.post("/auth/logout");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     ToastrService.success(i18n.t("logoutSuccess"));
@@ -73,7 +72,7 @@ export const loginWithRefreshtoken = async (refreshToken: string) => {
     const response = await api.post(
       `/user/refresh-token-login/${refreshToken}`
     );
-    return response.data.data;
+    return response.data;
   } catch (error) {
     console.error("Refresh token login error:", error);
     return null;
