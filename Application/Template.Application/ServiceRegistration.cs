@@ -1,5 +1,9 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
+using Template.Application.Abstraction.Cache;
 using Template.Application.Abstraction.src;
+using Template.Application.Cache;
 using Template.Application.src;
 using Template.Application.src.Abstraction;
 using Template.Application.src.Abstraction.Base;
@@ -17,6 +21,25 @@ public static class ServiceRegistration
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IUserService, UserService>();
         //add services -> will use reflection to register all services
+        return services;
+    }
+    public static IServiceCollection AddCachingServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddMemoryCache(); // This caching approach is suitable for single-server applications only. It will not work reliably if the application is scaled to multiple servers.
+
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = configuration["RedisConfiguration:Url"];
+            options.InstanceName = configuration["RedisConfiguration:InstanceName"];
+        });
+        services.AddSingleton<IConnectionMultiplexer>(sp =>
+        {
+            var config = ConfigurationOptions.Parse(configuration["RedisConfiguration:Url"], true);
+            config.AbortOnConnectFail = false;
+            return ConnectionMultiplexer.Connect(config);
+        });
+        services.AddScoped<IMemoryCacheService, MemoryCacheService>(); // This caching approach is suitable for single-server applications only. It will not work reliably if the application is scaled to multiple servers.
+        services.AddScoped<IRedisCacheService, RedisCacheService>();
         return services;
     }
 }

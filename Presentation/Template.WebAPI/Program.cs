@@ -17,7 +17,8 @@ builder.Services.AddSwaggerServices()
     .AddOpenTelemetryServices()
     .AddApplicationServices()
     .AddInfrastructureServices(builder.Configuration)
-    .AddSerilogServices(builder.Configuration);
+    .AddSerilogServices(builder.Configuration)
+    .AddCachingServices(builder.Configuration);
 builder.Host.UseSerilog();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
