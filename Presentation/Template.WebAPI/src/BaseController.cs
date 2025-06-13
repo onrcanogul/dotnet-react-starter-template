@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Template.Common.Models.Response;
+using Template.Shared.Base.Response;
 
 namespace Template.WebAPI.Controllers.Base;
 

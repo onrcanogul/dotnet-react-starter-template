@@ -1,4 +1,4 @@
-namespace Template.Common.Models.Token;
+namespace Template.Shared.Models.Token;
 
 public class Token
 {

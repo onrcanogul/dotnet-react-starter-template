@@ -1,6 +1,6 @@
 using Template.Application.Abstraction.src.User.Dto;
-using Template.Common.Models.Response;
-using Template.Common.Models.Token;
+using Template.Shared.Base.Response;
+using Template.Shared.Models.Token;
 
 namespace Template.Application.Abstraction.src;
 

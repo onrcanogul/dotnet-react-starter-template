@@ -1,4 +1,4 @@
-namespace Template.Common.Models.Enums;
+namespace Template.Shared.Base.Enums;
 public enum ExampleEnum
 {
     Pending,

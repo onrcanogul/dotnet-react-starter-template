@@ -1,6 +1,6 @@
-namespace Template.Common.Models.Entities;
+namespace Template.Shared.Base.Dtos;
 
-public abstract class BaseEntity
+public abstract class BaseDto
 {
     //Identity
     public Guid Id { get; set; }
@@ -9,8 +9,5 @@ public abstract class BaseEntity
     public virtual DateTime CreatedDate { get; set; }
     public virtual DateTime? UpdatedDate { get; set; }
     public virtual string CreatedBy { get; set; }
-    public virtual string? UpdatedBy { get; set; }
-    
-    //Soft Delete
-    public bool IsDeleted { get; set; }
+    public virtual string? UpdatedBy { get; set; }  
 }

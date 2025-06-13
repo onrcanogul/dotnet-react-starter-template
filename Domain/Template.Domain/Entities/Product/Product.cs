@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using Template.Common.Models.Entities;
+using Template.Shared.Base.Entities;
 
 namespace Template.Domain.Entities;
 

@@ -4,8 +4,8 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Template.Common.Models.Token;
 using Template.Domain.Entities.Identity;
+using Template.Shared.Models.Token;
 
 namespace Template.Infrastructure;
 

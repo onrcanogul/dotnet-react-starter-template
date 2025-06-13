@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
-using Template.Common.Models.Dtos;
-using Template.Common.Models.Entities;
-using Template.Common.Models.Response;
+using Template.Shared.Base.Dtos;
+using Template.Shared.Base.Entities;
+using Template.Shared.Base.Response;
 
 namespace Template.Application.src.Abstraction.Base;
 

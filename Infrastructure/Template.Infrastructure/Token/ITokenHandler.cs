@@ -1,5 +1,5 @@
-using Template.Common.Models.Token;
 using Template.Domain.Entities.Identity;
+using Template.Shared.Models.Token;
 
 namespace Template.Infrastructure;
 

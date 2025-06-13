@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Template.Common.Models.Response;
+namespace Template.Shared.Base.Response;
 
 public class ServiceResponse<T> : ServiceResponse
 {

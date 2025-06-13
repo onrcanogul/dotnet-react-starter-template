@@ -40,7 +40,6 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Application\Template.Application.Abstraction\Template.Application.Abstraction.csproj" />
       <ProjectReference Include="..\..\Application\Template.Application\Template.Application.csproj" />
-      <ProjectReference Include="..\..\Infrastructure\Template.Common\Template.Common.csproj" />
       <ProjectReference Include="..\..\Infrastructure\Template.Infrastructure\Template.Infrastructure.csproj" />
     </ItemGroup>
 

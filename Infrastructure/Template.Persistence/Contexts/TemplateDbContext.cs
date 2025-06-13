@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Template.Common.Models.Entities;
 using Template.Domain.Entities;
 using Template.Domain.Entities.Identity;
+using Template.Shared.Base.Entities;
 
 namespace Template.Persistence.Contexts;
 

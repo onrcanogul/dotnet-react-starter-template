@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using Template.Common.Models.Entities;
 using Template.Persistence.Contexts;
+using Template.Shared.Base.Entities;
 
 namespace Template.Persistence.Repository;
 

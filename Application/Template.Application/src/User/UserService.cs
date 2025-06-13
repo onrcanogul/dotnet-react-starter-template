@@ -6,10 +6,10 @@ using Microsoft.Extensions.Localization;
 using Template.Application.Abstraction.src;
 using Template.Application.Abstraction.src.User.Dto;
 using Template.Common.Exceptions;
-using Template.Common.Models.Response;
-using Template.Common.Models.Token;
 using Template.Domain.Entities.Identity;
 using Template.Infrastructure;
+using Template.Shared.Base.Response;
+using Template.Shared.Models.Token;
 
 namespace Template.Application.src;
 

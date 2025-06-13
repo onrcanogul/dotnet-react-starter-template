@@ -1,4 +1,4 @@
-using Template.Common.Models.Dtos;
+using Template.Shared.Base.Dtos;
 
 namespace Template.Application.src.Abstraction.Dto;
 

@@ -1,5 +1,5 @@
 using System.Linq.Expressions;
-using Template.Common.Models.Entities;
+using Template.Shared.Base.Entities;
 
 namespace Template.Persistence.Repository;
 

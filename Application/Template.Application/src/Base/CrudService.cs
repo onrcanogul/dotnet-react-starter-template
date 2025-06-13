@@ -4,11 +4,11 @@ using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
 using Template.Application.src.Abstraction.Base;
 using Template.Common.Exceptions;
-using Template.Common.Models.Dtos;
-using Template.Common.Models.Entities;
-using Template.Common.Models.Response;
 using Template.Persistence.Repository;
 using Template.Persistence.UnitOfWork;
+using Template.Shared.Base.Dtos;
+using Template.Shared.Base.Entities;
+using Template.Shared.Base.Response;
 
 namespace Template.Application.src.Base;
 
