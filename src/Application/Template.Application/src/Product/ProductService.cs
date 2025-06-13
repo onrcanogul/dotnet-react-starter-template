@@ -11,7 +11,7 @@ namespace Template.Application.src;
 
 public class ProductService
     (IRepository<Product> repository, IMapper mapper, IUnitOfWork unitOfWork, IStringLocalizer localize) 
-    : CrudService<Product, ProductDto>(repository, mapper, unitOfWork, localize),IProductService
+    : CrudService<Product, ProductDto>(repository, mapper, unitOfWork, localize), IProductService
 {
     
 }
