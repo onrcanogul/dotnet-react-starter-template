@@ -9,12 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddSwaggerServices()
+    .AddHealthCheckServices(builder.Configuration)
     .AddLocalizationServices()
     .AddCorsServices()
     .AddJsonSerializerServices()
     .AddRateLimiterServices()
     .AddPersistenceServices(builder.Configuration)
-    .AddOpenTelemetryServices()
+    .AddOpenTelemetryServices(builder.Configuration)
     .AddApplicationServices()
     .AddInfrastructureServices(builder.Configuration)
     .AddSerilogServices(builder.Configuration)
@@ -27,6 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerMiddleware();
 }
 app.UseLocalizationServices();
+app.UseHealthCheckServices();
 app.UseInfrastructureServices();
 app.UseCorsServices();
 app.UseRateLimiter();
