@@ -1,24 +1,22 @@
-# .NET Starter Template 🚀
+# .NET Starter Template
 
 A robust and scalable .NET starter template following **Onion Architecture**, integrated with essential tools like **OpenTelemetry**, **Swagger**, and **Rate Limiter** to provide a production-ready foundation for building modern web applications.
 
 ## Features 🛠️
 
-✅ **Onion Architecture** - Clean and maintainable code structure  
-✅ **OpenTelemetry** - Distributed tracing and monitoring  
-✅ **Swagger** - API documentation for easy testing and interaction  
-✅ **Rate Limiting** - Prevent abuse and improve performance  
-✅ **Dependency Injection** - Built-in support for decoupling dependencies  
-✅ **Logging** - Structured logging with built-in integrations  
-✅ **Docker Support** - Containerized development and deployment  
+**Onion Architecture** - Clean and maintainable code structure  
+**OpenTelemetry** - Distributed tracing and monitoring  
+**Swagger** - API documentation for easy testing and interaction  
+**Rate Limiting** - Prevent abuse and improve performance  
+**Logging** - Structured logging with built-in integrations  
+**Docker Support** - Containerized development and deployment  
 
-## Getting Started 🚀
+## Getting Started
 
 ### **Prerequisites**
 Ensure you have the following installed before running the project:
-- [.NET SDK](https://dotnet.microsoft.com/download) (Latest version)
+- [.NET SDK](https://dotnet.microsoft.com/download) (LTS version)
 - [Docker](https://www.docker.com/get-started) (Optional, for containerized deployment)
-- [PostgreSQL](https://www.postgresql.org/) (or any supported database)
 
 ### **Installation & Setup**
 1. Clone the repository:
@@ -46,34 +44,27 @@ docker build -t your-app-name .
 docker run -p 5000:5000 your-app-name
 ```
 
-## Architecture 🏗️
+## Architecture
 
 This template follows the **Onion Architecture**, which enforces separation of concerns and enables maintainability.
 
-📂 **Core Layer**  
-- Business logic  
-- Domain models  
+**Core Layer**  
+- Domain models
 
-📂 **Infrastructure Layer**  
-- Database interactions  
-- External service integrations  
+**Infrastructure Layer**  
+- Database interactions
+- Middlewares  
 
-📂 **Application Layer**  
+**Application Layer**  
 - Use cases  
 - Service interfaces  
 
-📂 **API Layer**  
+**API Layer**  
 - Controllers  
-- Middleware  
+
 
 ## Swagger UI 📖
 After running the project, access Swagger UI at:
 ```
 http://localhost:5000/swagger
 ```
-
-
-## Contributing 🤝
-Feel free to contribute! Fork the repo, create a new branch, and submit a PR.
-
-Happy coding! 🎯
