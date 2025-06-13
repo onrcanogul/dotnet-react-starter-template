@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35431.28
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.WebAPI", "Presentation\Template.WebAPI\Template.WebAPI.csproj", "{FD955330-6B05-4C5B-87DB-C02D7F275388}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.WebAPI", "src\Presentation\Template.WebAPI\Template.WebAPI.csproj", "{FD955330-6B05-4C5B-87DB-C02D7F275388}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Application", "Application\Template.Application\Template.Application.csproj", "{A1B2C3D4-E5F6-789A-BCDE-123456789ABC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Application", "src\Application\Template.Application\Template.Application.csproj", "{A1B2C3D4-E5F6-789A-BCDE-123456789ABC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Application.Abstraction", "Application\Template.Application.Abstraction\Template.Application.Abstraction.csproj", "{1A6ED5E0-2AE5-4AC6-8F95-AA7492D74F7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Application.Abstraction", "src\Application\Template.Application.Abstraction\Template.Application.Abstraction.csproj", "{1A6ED5E0-2AE5-4AC6-8F95-AA7492D74F7B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Domain", "Domain\Template.Domain\Template.Domain.csproj", "{9F20005F-CB8F-4286-A63F-DA063EE98994}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Domain", "src\Domain\Template.Domain\Template.Domain.csproj", "{9F20005F-CB8F-4286-A63F-DA063EE98994}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure", "Infrastructure\Template.Infrastructure\Template.Infrastructure.csproj", "{A1075704-C224-4087-9BE0-AFF550677B8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Infrastructure", "src\Infrastructure\Template.Infrastructure\Template.Infrastructure.csproj", "{A1075704-C224-4087-9BE0-AFF550677B8B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Persistence", "Infrastructure\Template.Persistence\Template.Persistence.csproj", "{F765AB7D-2428-4F2F-9D34-A51193A0459B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Persistence", "src\Infrastructure\Template.Persistence\Template.Persistence.csproj", "{F765AB7D-2428-4F2F-9D34-A51193A0459B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{3A1CFC54-DED3-4BF6-A619-65A693700817}"
 EndProject
@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{A2236BFE-01ED-468B-8278-0A3496EC4BC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Shared", "Shared\Template.Shared\Template.Shared.csproj", "{D52003BB-B886-48A4-ADF5-0617E250C38E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Shared", "src\Shared\Template.Shared\Template.Shared.csproj", "{D52003BB-B886-48A4-ADF5-0617E250C38E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8E69EEB3-7996-4DD5-AAAB-D5FA61E135CC}"
 EndProject
