@@ -22,7 +22,7 @@ public class ProductControllerTests
     public async Task Get_ShouldReturnOkWithProductList()
     {
         var expected = ServiceResponse<List<ProductDto>>.Success(new List<ProductDto> { new() { Name = "Test Product" } }, StatusCodes.Status200OK);
-        _productServiceMock.Setup(s => s.GetListAsync(null, null, null, true))
+        _productServiceMock.Setup(s => s.ToListAsync(null, null, null, true))
             .ReturnsAsync(expected);
 
         var result = await _controller.Get();
@@ -40,7 +40,7 @@ public class ProductControllerTests
         var dto = new ProductDto { Id = id, Name = "Product" };
         var response = ServiceResponse<ProductDto>.Success(dto, StatusCodes.Status200OK);
 
-        _productServiceMock.Setup(s => s.GetFirstOrDefaultAsync(x => x.Id == id, null, null, true))
+        _productServiceMock.Setup(s => s.FirstOrDefaultAsync(x => x.Id == id, null, null, true))
             .ReturnsAsync(response);
 
         var result = await _controller.Get(id);
@@ -100,7 +100,7 @@ public class ProductControllerTests
         var dtos = new List<ProductDto> { new() { Name = "Paged Product" } };
         var response = ServiceResponse<List<ProductDto>>.Success(dtos, StatusCodes.Status200OK);
 
-        _productServiceMock.Setup(s => s.GetPagedListAsync(page, size, null, null, null, true)).ReturnsAsync(response);
+        _productServiceMock.Setup(s => s.ToPagedListAsync(page, size, null, null, null, true)).ReturnsAsync(response);
 
         var result = await _controller.Get(page, size);
 

@@ -18,7 +18,7 @@ public class ProductController(IProductService service) : BaseController
     /// <returns>List of all products.</returns>
     [HttpGet]
     public async Task<IActionResult> Get()
-        => ApiResult(await service.GetListAsync());
+        => ApiResult(await service.ToListAsync());
 
     /// <summary>
     /// Gets a paged list of products.
@@ -28,7 +28,7 @@ public class ProductController(IProductService service) : BaseController
     /// <returns>Paged list of products.</returns>
     [HttpGet("paged/{page:int}/{size:int}")]
     public async Task<IActionResult> Get([FromRoute] int page, [FromRoute] int size)
-        => ApiResult(await service.GetPagedListAsync(page, size));
+        => ApiResult(await service.ToPagedListAsync(page, size));
 
     /// <summary>
     /// Gets a specific product by ID.
@@ -37,7 +37,7 @@ public class ProductController(IProductService service) : BaseController
     /// <returns>Product matching the given ID.</returns>
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get(Guid id)
-        => ApiResult(await service.GetFirstOrDefaultAsync(x => x.Id == id));
+        => ApiResult(await service.FirstOrDefaultAsync(x => x.Id == id));
     
     /// <summary>
     /// Creates a new product (without indexing to Elasticsearch).
