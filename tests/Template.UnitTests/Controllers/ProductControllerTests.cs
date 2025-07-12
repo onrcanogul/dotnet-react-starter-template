@@ -11,12 +11,11 @@ using Template.WebAPI.Controllers;
 public class ProductControllerTests
 {
     private readonly Mock<IProductService> _productServiceMock = new();
-    private readonly Mock<IStringLocalizer> _localizerMock = new();
     private readonly ProductController _controller;
 
     public ProductControllerTests()
     {
-        _controller = new ProductController(_productServiceMock.Object, _localizerMock.Object);
+        _controller = new ProductController(_productServiceMock.Object);
     }
 
     [Fact]

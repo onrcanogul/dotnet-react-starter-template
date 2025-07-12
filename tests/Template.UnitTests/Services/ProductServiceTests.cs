@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 using Moq;
 using System.Linq.Expressions;
+using Microsoft.Extensions.Logging;
 using Template.Application.src;
+using Template.Application.src.Abstraction.Base.Search;
 using Template.Application.src.Abstraction.Dto;
 using Template.Domain.Entities;
 using Template.Persistence.Repository;
@@ -14,8 +16,10 @@ public class ProductServiceTests
 {
     private readonly Mock<IRepository<Product>> _repositoryMock = new();
     private readonly Mock<IMapper> _mapperMock = new();
+    private readonly Mock<ILogger<ProductService>> _loggerMock = new();
     private readonly Mock<IUnitOfWork> _unitOfWorkMock = new();
     private readonly Mock<IStringLocalizer> _localizerMock = new();
+    private readonly Mock<IElasticSearchService> _elasticSearchServiceMock = new();
 
     private readonly ProductService _productService;
 
@@ -23,8 +27,10 @@ public class ProductServiceTests
     {
         _productService = new ProductService(
             _repositoryMock.Object,
+            _loggerMock.Object,
             _mapperMock.Object,
             _unitOfWorkMock.Object,
+            _elasticSearchServiceMock.Object,
             _localizerMock.Object
         );
     }

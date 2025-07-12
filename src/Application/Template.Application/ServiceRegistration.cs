@@ -7,7 +7,9 @@ using Template.Application.Cache;
 using Template.Application.src;
 using Template.Application.src.Abstraction;
 using Template.Application.src.Abstraction.Base;
+using Template.Application.src.Abstraction.Base.Search;
 using Template.Application.src.Base;
+using Template.Application.src.Base.Search;
 using Template.Application.src.Mappings;
 
 namespace Template.Application;
@@ -20,6 +22,8 @@ public static class ServiceRegistration
         services.AddScoped(typeof(ICrudService<,>), typeof(CrudService<,>));
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IElasticSearchService, ElasticSearchService>();
+        
         //add services -> will use reflection to register all services
         return services;
     }
@@ -34,7 +38,7 @@ public static class ServiceRegistration
         });
         services.AddSingleton<IConnectionMultiplexer>(sp =>
         {
-            var config = ConfigurationOptions.Parse(configuration["RedisConfiguration:Url"], true);
+            var config = ConfigurationOptions.Parse(configuration["RedisConfiguration:Url"]!, true);
             config.AbortOnConnectFail = false;
             return ConnectionMultiplexer.Connect(config);
         });

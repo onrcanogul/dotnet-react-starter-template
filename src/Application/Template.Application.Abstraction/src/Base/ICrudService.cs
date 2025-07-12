@@ -12,7 +12,7 @@ public interface ICrudService<T, TDto>
         Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
         Func<IQueryable<T>, IQueryable<T>>? includeProperties = null,
         bool disableTracking = true);
-    Task<ServiceResponse<TDto>> GetFirstOrDefaultAsync(Expression<Func<T?, bool>>? predicate = null, 
+    Task<ServiceResponse<TDto>> GetFirstOrDefaultAsync(Expression<Func<T, bool>>? predicate = null, 
         Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
         Func<IQueryable<T>, IQueryable<T>>? includeProperties = null,
         bool disableTracking = true);

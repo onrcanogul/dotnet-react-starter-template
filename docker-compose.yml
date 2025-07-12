@@ -5,18 +5,68 @@ services:
     image: otel/opentelemetry-collector:latest
     container_name: otel-collector
     ports:
-      - "4317:4317" # otlp grpc port
-      - "55680:55680" # OTLP http port
-      - "8888:8888" # prometheus metrics port
-      - "13133:13133" # healthcheck
-      - "4318:4318" # otlp http traces port
+      - "4317:4317"   # OTLP gRPC
+      - "55680:55680" # OTLP HTTP (deprecated)
+      - "8888:8888"   # Prometheus metrics
+      - "13133:13133" # Healthcheck
+      - "4318:4318"   # OTLP HTTP Traces
     volumes:
       - ./otel-config.yaml:/etc/otel-config.yaml
     command:
       - --config=/etc/otel-config.yaml
+    depends_on:
+      - elasticsearch
+
   jaeger:
     image: jaegertracing/all-in-one:1.41
     container_name: jaeger
     ports:
-      - "16686:16686" # jager ui
-      - "6831:6831/udp" # udp port for traces
+      - "16686:16686"  # Jaeger UI
+      - "6831:6831/udp" # Traces
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.13.4
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Password12*
+      POSTGRES_DB: Template-DB
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
