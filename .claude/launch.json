@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "web-ui",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000,
+      "cwd": "src/Presentation/Clients/template-web-ui"
+    },
+    {
+      "name": "api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["run", "--project", "src/Presentation/Template.WebAPI"],
+      "port": 5000,
+      "url": "http://localhost:5000/swagger"
+    }
+  ]
+}

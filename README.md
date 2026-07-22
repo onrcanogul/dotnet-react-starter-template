@@ -1,70 +1,107 @@
-# .NET Starter Template
+# .NET 8 + React Starter Template
 
-A robust and scalable .NET starter template following **Onion Architecture**, integrated with essential tools like **OpenTelemetry**, **Swagger**, and **Rate Limiter** to provide a production-ready foundation for building modern web applications.
+Production-shaped starting point for a web application: an Onion-architecture
+.NET 8 API and a React 18 SPA, with the cross-cutting concerns already wired —
+auth, caching, search, telemetry, health checks, localisation.
 
-## Features 🛠️
+It is also built to be worked on by coding agents. `CLAUDE.md` states the
+conventions as an enforceable contract, `.claude/skills/` scaffolds whole
+vertical slices, and CI checks the rules a reviewer would otherwise have to
+remember.
 
-**Onion Architecture** - Clean and maintainable code structure  
-**OpenTelemetry** - Distributed tracing and monitoring  
-**Swagger** - API documentation for easy testing and interaction  
-**Rate Limiting** - Prevent abuse and improve performance  
-**Logging** - Structured logging with built-in integrations  
-**Docker Support** - Containerized development and deployment  
+## Features
 
-## Getting Started
+| | |
+|---|---|
+| **Onion architecture** | dependencies point inward; enforced in CI |
+| **Auth** | ASP.NET Identity + JWT with refresh tokens |
+| **Persistence** | EF Core / PostgreSQL, repository + unit of work, soft delete, audit columns |
+| **Mapping** | Mapperly — source-generated, so mapping errors are build errors |
+| **Search** | Elasticsearch |
+| **Caching** | Redis and in-memory, behind one interface |
+| **Observability** | OpenTelemetry → OTLP collector → Jaeger, Serilog structured logs |
+| **Ops** | health checks + UI, rate limiting, global exception handling |
+| **i18n** | JSON resources on both API and client |
+| **Frontend** | React 18, TypeScript, Vite, Redux Toolkit, i18next |
 
-### **Prerequisites**
-Ensure you have the following installed before running the project:
-- [.NET SDK](https://dotnet.microsoft.com/download) (LTS version)
-- [Docker](https://www.docker.com/get-started) (Optional, for containerized deployment)
+## Getting started
 
-### **Installation & Setup**
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/onrcanogul/dotnet-webapi-starter-template.git
-   cd your-repo-folder
-   ```
+Requires the [.NET 8 SDK](https://dotnet.microsoft.com/download), Node 18+ and
+Docker.
 
-2. Install dependencies:
-   ```sh
-   dotnet restore
-   ```
-
-3. Configure environment variables (e.g., database connection, telemetry settings).
-
-4. Run the project:
-   ```sh
-   dotnet run
-   ```
-
-### **Docker Setup**
-To run the project in a **Docker container**, use:
-```sh
-docker build -t your-app-name .
-docker run -p 5000:5000 your-app-name
+```bash
+docker compose up -d          # Postgres, Redis, Elasticsearch, Jaeger, OTLP collector
 ```
 
-## Architecture
+Set the JWT signing key (secrets are never committed — `appsettings.json` ships
+with empty values):
 
-This template follows the **Onion Architecture**, which enforces separation of concerns and enables maintainability.
-
-**Core Layer**  
-- Domain models
-
-**Infrastructure Layer**  
-- Database interactions
-- Middlewares  
-
-**Application Layer**  
-- Use cases  
-- Service interfaces  
-
-**API Layer**  
-- Controllers  
-
-
-## Swagger UI 📖
-After running the project, access Swagger UI at:
+```bash
+cd src/Presentation/Template.WebAPI
+dotnet user-secrets set "Token:SecurityKey" "$(openssl rand -base64 48)"
 ```
-http://localhost:5000/swagger
+
+Create the schema, then run the API:
+
+```bash
+export DOTNET_ROOT="$(dirname "$(readlink -f "$(which dotnet)")")"
+dotnet ef database update --project src/Infrastructure/Template.Persistence --startup-project src/Presentation/Template.WebAPI --context TemplateDbContext
+dotnet run --project src/Presentation/Template.WebAPI
+```
+
+And the client:
+
+```bash
+cd src/Presentation/Clients/template-web-ui
+npm install && npm run dev
+```
+
+| | |
+|---|---|
+| API | http://localhost:5000 |
+| Swagger | http://localhost:5000/swagger |
+| Health UI | http://localhost:5000/health-ui |
+| Web UI | http://localhost:3000 |
+| Jaeger | http://localhost:16686 |
+| Kibana | http://localhost:5601 |
+
+## Layout
+
+```
+src/
+  Shared/Template.Shared                         base types, envelopes, exceptions
+  Domain/Template.Domain                         entities
+  Application/Template.Application.Abstraction   contracts
+  Application/Template.Application               use cases
+  Infrastructure/Template.Persistence            EF Core, repositories, unit of work
+  Infrastructure/Template.Infrastructure         JWT, middleware
+  Presentation/Template.WebAPI                   controllers, DI, cross-cutting setup
+  Presentation/Clients/template-web-ui           React SPA
+tests/Template.UnitTests
+```
+
+`Products` is the reference feature — copy its shape when adding one.
+
+## Starting a project from this template
+
+With Claude Code:
+
+```
+/new-project OrderApi
+```
+
+That renames every `Template.*` identifier, project, folder and container,
+removes the sample `Product` feature, and regenerates the initial migration.
+
+## Working on it
+
+Read [`CLAUDE.md`](CLAUDE.md) first — it is short, and it is what keeps the
+codebase consistent enough to extend safely.
+[`docs/architecture.md`](docs/architecture.md) explains the reasoning behind
+those rules.
+
+```bash
+dotnet build Template.sln           # must stay at 0 warnings
+dotnet test Template.sln
+python3 scripts/check-namespaces.py
 ```
