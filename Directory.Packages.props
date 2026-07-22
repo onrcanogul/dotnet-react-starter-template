@@ -26,8 +26,8 @@
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
   </ItemGroup>
 
-  <ItemGroup Label="Mapping - 14.x is the last MIT-licensed AutoMapper; 15+ requires a commercial licence">
-    <PackageVersion Include="AutoMapper" Version="14.0.0" />
+  <ItemGroup Label="Mapping - source-generated, so a bad mapping is a build error not a runtime one">
+    <PackageVersion Include="Riok.Mapperly" Version="4.3.1" />
   </ItemGroup>
 
   <ItemGroup Label="Search &amp; cache">

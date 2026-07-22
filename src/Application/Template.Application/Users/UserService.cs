@@ -1,4 +1,3 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +13,7 @@ using Template.Shared.Base.Tokens;
 
 namespace Template.Application.Users;
 
-public class UserService(UserManager<User> service, IJwtTokenHandler tokenHandler, IMapper mapper, IHttpContextAccessor httpContextAccessor, IStringLocalizer localize)
+public class UserService(UserManager<User> service, IJwtTokenHandler tokenHandler, IUserMapper mapper, IHttpContextAccessor httpContextAccessor, IStringLocalizer localize)
     : IUserService
 {
     public string? GetCurrentUsername() => httpContextAccessor.HttpContext?.User.Identity!.Name;
@@ -40,7 +39,7 @@ public class UserService(UserManager<User> service, IJwtTokenHandler tokenHandle
     public async Task<ServiceResponse> Register(RegisterDto model)
     {
         await Validations(model);
-        var user = mapper.Map<User>(model);
+        var user = mapper.ToEntity(model);
         var result = await service.CreateAsync(user, model.Password);
         if (!result.Succeeded)
             throw new BadRequestException(result.Errors.Select(x => x.Description).Aggregate((x, y) => $"{x}, {y}"));

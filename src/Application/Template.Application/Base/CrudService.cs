@@ -1,4 +1,3 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
@@ -20,12 +19,12 @@ namespace Template.Application.Base;
 /// <see cref="UnitOfWork"/> members rather than capturing their own copies -
 /// declaring the same dependency twice is what triggers CS9107.
 /// </summary>
-public class CrudService<T, TDto>(IRepository<T> repository, IMapper mapper, IUnitOfWork unitOfWork, IStringLocalizer localize)
+public class CrudService<T, TDto>(IRepository<T> repository, IEntityMapper<T, TDto> mapper, IUnitOfWork unitOfWork, IStringLocalizer localize)
     : ICrudService<T, TDto>
     where T : BaseEntity where TDto : BaseDto
 {
     protected IRepository<T> Repository { get; } = repository;
-    protected IMapper Mapper { get; } = mapper;
+    protected IEntityMapper<T, TDto> Mapper { get; } = mapper;
     protected IUnitOfWork UnitOfWork { get; } = unitOfWork;
     protected IStringLocalizer Localize { get; } = localize;
 
@@ -34,7 +33,7 @@ public class CrudService<T, TDto>(IRepository<T> repository, IMapper mapper, IUn
         bool disableTracking = true)
     {
         var list = await Repository.ToListAsync(predicate, orderBy, includeProperties, disableTracking);
-        return ServiceResponse<List<TDto>>.Success(Mapper.Map<List<TDto>>(list), StatusCodes.Status200OK);
+        return ServiceResponse<List<TDto>>.Success(Mapper.ToDtoList(list), StatusCodes.Status200OK);
     }
 
     public async Task<ServiceResponse<TDto>> FirstOrDefaultAsync(Expression<Func<T, bool>>? predicate = null,
@@ -43,7 +42,7 @@ public class CrudService<T, TDto>(IRepository<T> repository, IMapper mapper, IUn
     {
         var entity = await Repository.FirstOrDefaultAsync(predicate, orderBy, includeProperties, disableTracking)
                      ?? throw new NotFoundException(Localize["NotFound"].Value);
-        return ServiceResponse<TDto>.Success(Mapper.Map<TDto>(entity), StatusCodes.Status200OK);
+        return ServiceResponse<TDto>.Success(Mapper.ToDto(entity), StatusCodes.Status200OK);
     }
 
     public async Task<ServiceResponse<List<TDto>>> ToPagedListAsync(int page, int size, Expression<Func<T, bool>>? predicate = null,
@@ -51,13 +50,13 @@ public class CrudService<T, TDto>(IRepository<T> repository, IMapper mapper, IUn
         Func<IQueryable<T>, IQueryable<T>>? includeProperties = null, bool disableTracking = true)
     {
         var list = await Repository.ToPagedListAsync(page, size, predicate, orderBy, includeProperties, disableTracking);
-        return ServiceResponse<List<TDto>>.Success(Mapper.Map<List<TDto>>(list), StatusCodes.Status200OK);
+        return ServiceResponse<List<TDto>>.Success(Mapper.ToDtoList(list), StatusCodes.Status200OK);
     }
 
     public async Task<ServiceResponse<TDto>> CreateAsync(TDto dto)
     {
         dto.Id = Guid.NewGuid();
-        await Repository.CreateAsync(Mapper.Map<T>(dto));
+        await Repository.CreateAsync(Mapper.ToEntity(dto));
         await UnitOfWork.CommitAsync();
         return ServiceResponse<TDto>.Success(dto, StatusCodes.Status201Created);
     }
@@ -67,7 +66,7 @@ public class CrudService<T, TDto>(IRepository<T> repository, IMapper mapper, IUn
         // Tracking must stay on: the entity is mutated and committed below.
         var entity = await Repository.FirstOrDefaultAsync(x => x.Id == dto.Id, disableTracking: false)
                      ?? throw new NotFoundException(Localize["NotFound"].Value);
-        Mapper.Map(dto, entity);
+        Mapper.Apply(dto, entity);
         Repository.Update(entity);
         await UnitOfWork.CommitAsync();
         return ServiceResponse<TDto>.Success(dto, StatusCodes.Status200OK);

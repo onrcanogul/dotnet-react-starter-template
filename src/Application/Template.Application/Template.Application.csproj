@@ -7,7 +7,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper" />
+      <PackageReference Include="Riok.Mapperly" />
       <PackageReference Include="Elastic.Clients.Elasticsearch" />
       <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" />
       <PackageReference Include="StackExchange.Redis" />

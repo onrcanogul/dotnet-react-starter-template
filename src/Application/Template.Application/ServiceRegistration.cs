@@ -12,6 +12,9 @@ using Template.Application.Abstraction.Base.Search;
 using Template.Application.Base;
 using Template.Application.Base.Search;
 using Template.Application.Products.Mappings;
+using Template.Application.Users.Mappings;
+using Template.Domain.Entities;
+using Template.Application.Abstraction.Products.Dtos;
 
 namespace Template.Application;
 
@@ -19,7 +22,11 @@ public static class ServiceRegistration
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddAutoMapper(typeof(ProductMapping).Assembly);
+        // One mapper per aggregate. Mapperly generates the bodies at compile time,
+        // so a mapping that cannot be satisfied fails the build, not a request.
+        services.AddSingleton<IEntityMapper<Product, ProductDto>, ProductMapper>();
+        services.AddSingleton<IUserMapper, UserMapper>();
+
         services.AddScoped(typeof(ICrudService<,>), typeof(CrudService<,>));
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IUserService, UserService>();

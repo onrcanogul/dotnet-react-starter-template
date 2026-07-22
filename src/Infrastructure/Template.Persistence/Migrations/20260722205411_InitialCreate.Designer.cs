@@ -13,8 +13,8 @@ using Template.Persistence.Contexts;
 namespace Template.Persistence.Migrations
 {
     [DbContext(typeof(TemplateDbContext))]
-    [Migration("20250712162617_new mig")]
-    partial class newmig
+    [Migration("20260722205411_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -175,6 +175,10 @@ namespace Template.Persistence.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");

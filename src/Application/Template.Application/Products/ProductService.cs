@@ -1,9 +1,9 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Template.Application.Abstraction.Products;
 using Template.Application.Abstraction.Base.Search;
+using Template.Application.Abstraction.Base;
 using Template.Application.Abstraction.Products.Dtos;
 using Template.Application.Base;
 using Template.Domain.Entities;
@@ -22,7 +22,7 @@ namespace Template.Application.Products;
 public class ProductService(
         IRepository<Product> repository,
         ILogger<ProductService> logger,
-        IMapper mapper,
+        IEntityMapper<Product, ProductDto> mapper,
         IUnitOfWork unitOfWork,
         IElasticSearchService elasticSearchService,
         IStringLocalizer localize)
@@ -35,19 +35,19 @@ public class ProductService(
         var filters = new Dictionary<string, string> { { "name", name }, { "description", description } };
         var result = await elasticSearchService.MultiFieldFilterSearchAsync<Product>(IndexName, filters);
 
-        return ServiceResponse<List<ProductDto>>.Success(Mapper.Map<List<ProductDto>>(result), StatusCodes.Status200OK);
+        return ServiceResponse<List<ProductDto>>.Success(Mapper.ToDtoList(result), StatusCodes.Status200OK);
     }
 
     public async Task<ServiceResponse<List<ProductDto>>> SearchProducts(string name)
     {
         var results = await elasticSearchService.SearchAsync<Product>(IndexName, name, "name");
         logger.LogInformation("Elasticsearch returned {Count} results for keyword '{Keyword}'", results.Count, name);
-        return ServiceResponse<List<ProductDto>>.Success(Mapper.Map<List<ProductDto>>(results), StatusCodes.Status200OK);
+        return ServiceResponse<List<ProductDto>>.Success(Mapper.ToDtoList(results), StatusCodes.Status200OK);
     }
 
     public async Task<ServiceResponse<NoContent>> CreateProduct(ProductDto product)
     {
-        var productEntity = Mapper.Map<Product>(product);
+        var productEntity = Mapper.ToEntity(product);
         productEntity.Id = Guid.NewGuid();
 
         await Repository.CreateAsync(productEntity);
