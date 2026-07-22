@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using Template.Common.Exceptions;
+using Template.Shared.Exceptions;
 using Template.Shared.Base.Response;
 
 namespace Template.Infrastructure.Middlewares;

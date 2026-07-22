@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Moq;
-using Template.Application.src.Abstraction;
-using Template.Application.src.Abstraction.Dto;
+using Template.Application.Abstraction.Products;
+using Template.Application.Abstraction.Products.Dtos;
 using Template.Shared.Base.Response;
 using Template.WebAPI.Controllers;
 
@@ -47,7 +47,7 @@ public class ProductControllerTests
 
         var objectResult = result as ObjectResult;
         objectResult!.StatusCode.Should().Be(StatusCodes.Status200OK);
-        (objectResult.Value as ServiceResponse<ProductDto>)!.Data.Id.Should().Be(id);
+        (objectResult.Value as ServiceResponse<ProductDto>)!.Data!.Id.Should().Be(id);
     }
 
     [Fact]

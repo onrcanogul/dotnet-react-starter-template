@@ -5,9 +5,10 @@ using Microsoft.Extensions.Localization;
 using Moq;
 using System.Linq.Expressions;
 using Microsoft.Extensions.Logging;
-using Template.Application.src;
-using Template.Application.src.Abstraction.Base.Search;
-using Template.Application.src.Abstraction.Dto;
+using Template.Application.Products;
+using Template.Application.Users;
+using Template.Application.Abstraction.Base.Search;
+using Template.Application.Abstraction.Products.Dtos;
 using Template.Domain.Entities;
 using Template.Persistence.Repository;
 using Template.Persistence.UnitOfWork;
@@ -59,25 +60,25 @@ public class ProductServiceTests
         var entity = new Product { Id = Guid.NewGuid(), Name = "Test" };
         var dto = new ProductDto { Id = entity.Id, Name = "Test" };
 
-        _repositoryMock.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Product, bool>>>(), null, null, true))
+        _repositoryMock.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Product, bool>>>(), null, null, It.IsAny<bool>()))
                        .ReturnsAsync(entity);
         _mapperMock.Setup(m => m.Map<ProductDto>(entity)).Returns(dto);
 
         var result = await _productService.FirstOrDefaultAsync(x => x.Id == entity.Id);
 
         result.Should().NotBeNull();
-        result.Data.Id.Should().Be(entity.Id);
+        result.Data!.Id.Should().Be(entity.Id);
     }
 
     [Fact]
     public async Task GetFirstOrDefaultAsync_ShouldThrow_WhenNotFound()
     {
-        _repositoryMock.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Product, bool>>>(), null, null, true))
+        _repositoryMock.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Product, bool>>>(), null, null, It.IsAny<bool>()))
                        .ReturnsAsync((Product?)null);
         _localizerMock.Setup(l => l["NotFound"]).Returns(new LocalizedString("NotFound", "Not found"));
 
         Func<Task> act = async () => await _productService.FirstOrDefaultAsync(x => x.Id == Guid.NewGuid());
-        await act.Should().ThrowAsync<Template.Common.Exceptions.NotFoundException>().WithMessage("Not found");
+        await act.Should().ThrowAsync<Template.Shared.Exceptions.NotFoundException>().WithMessage("Not found");
     }
 
     [Fact]
@@ -116,7 +117,7 @@ public class ProductServiceTests
         var dto = new ProductDto { Id = Guid.NewGuid(), Name = "Updated" };
         var entity = new Product { Id = dto.Id, Name = "Old" };
 
-        _repositoryMock.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Product, bool>>>(), null, null, true)).ReturnsAsync(entity);
+        _repositoryMock.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Product, bool>>>(), null, null, It.IsAny<bool>())).ReturnsAsync(entity);
         _mapperMock.Setup(m => m.Map(dto, entity)).Returns(new Product { Id = dto.Id, Name = "Updated" });
 
         var result = await _productService.UpdateAsync(dto);
@@ -125,7 +126,7 @@ public class ProductServiceTests
         _unitOfWorkMock.Verify(u => u.CommitAsync(), Times.Once);
 
         result.StatusCode.Should().Be(StatusCodes.Status200OK);
-        result.Data.Name.Should().Be("Updated");
+        result.Data!.Name.Should().Be("Updated");
     }
 
     [Fact]
@@ -133,12 +134,12 @@ public class ProductServiceTests
     {
         var dto = new ProductDto { Id = Guid.NewGuid(), Name = "Doesn't Matter" };
 
-        _repositoryMock.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Product, bool>>>(), null, null, true)).ReturnsAsync((Product?)null);
+        _repositoryMock.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Product, bool>>>(), null, null, It.IsAny<bool>())).ReturnsAsync((Product?)null);
         _localizerMock.Setup(l => l["NotFound"]).Returns(new LocalizedString("NotFound", "Not found"));
 
         Func<Task> act = async () => await _productService.UpdateAsync(dto);
 
-        await act.Should().ThrowAsync<Template.Common.Exceptions.NotFoundException>().WithMessage("Not found");
+        await act.Should().ThrowAsync<Template.Shared.Exceptions.NotFoundException>().WithMessage("Not found");
     }
 
     [Fact]
@@ -147,7 +148,7 @@ public class ProductServiceTests
         var id = Guid.NewGuid();
         var entity = new Product { Id = id, Name = "To Be Deleted" };
 
-        _repositoryMock.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Product, bool>>>(), null, null, true))
+        _repositoryMock.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Product, bool>>>(), null, null, It.IsAny<bool>()))
                        .ReturnsAsync(entity);
 
         var result = await _productService.DeleteAsync(id);
@@ -163,13 +164,13 @@ public class ProductServiceTests
     {
         var id = Guid.NewGuid();
 
-        _repositoryMock.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Product, bool>>>(), null, null, true))
+        _repositoryMock.Setup(r => r.FirstOrDefaultAsync(It.IsAny<Expression<Func<Product, bool>>>(), null, null, It.IsAny<bool>()))
                        .ReturnsAsync((Product?)null);
 
         _localizerMock.Setup(l => l["NotFound"]).Returns(new LocalizedString("NotFound", "Not found"));
 
         Func<Task> act = async () => await _productService.DeleteAsync(id);
 
-        await act.Should().ThrowAsync<Template.Common.Exceptions.NotFoundException>().WithMessage("Not found");
+        await act.Should().ThrowAsync<Template.Shared.Exceptions.NotFoundException>().WithMessage("Not found");
     }
 }

@@ -1,6 +1,7 @@
 # Build results
 bin/
 obj/
+artifacts/
 
 # User-specific files
 *.user
@@ -22,3 +23,18 @@ packages/
 
 # Logs
 *.log
+logs/
+
+# Secrets - never commit real configuration
+appsettings.Local.json
+appsettings.*.local.json
+.env
+.env.*
+!.env.example
+
+# OS noise
+.DS_Store
+
+# Claude Code local overrides (the committed .claude/ files ARE the template)
+.claude/settings.local.json
+.claude/worktrees/

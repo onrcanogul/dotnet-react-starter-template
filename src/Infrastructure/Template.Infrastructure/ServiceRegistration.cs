@@ -1,4 +1,4 @@
-using System.ComponentModel.Design;
+using Template.Infrastructure.Authentication;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -13,7 +13,7 @@ public static class ServiceRegistration
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<ITokenHandler, TokenHandler>();
+        services.AddScoped<IJwtTokenHandler, JwtTokenHandler>();
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer("Admin", options =>
         {
             options.TokenValidationParameters = new()

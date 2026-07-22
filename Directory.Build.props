@@ -1,0 +1,25 @@
+<Project>
+
+  <!--
+    Solution-wide build settings. Individual .csproj files MUST NOT redefine
+    TargetFramework, Nullable, ImplicitUsings or LangVersion - change them here.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+  </PropertyGroup>
+
+  <!--
+    The build is warning-free. Keep it that way: a warning you ignore today is a
+    warning that hides a real defect tomorrow. CI runs with -warnaserror.
+  -->
+  <PropertyGroup>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
+  </PropertyGroup>
+
+</Project>

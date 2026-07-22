@@ -1,16 +1,17 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
-using Template.Application.Abstraction.Cache;
-using Template.Application.Abstraction.src;
-using Template.Application.Cache;
-using Template.Application.src;
-using Template.Application.src.Abstraction;
-using Template.Application.src.Abstraction.Base;
-using Template.Application.src.Abstraction.Base.Search;
-using Template.Application.src.Base;
-using Template.Application.src.Base.Search;
-using Template.Application.src.Mappings;
+using Template.Application.Abstraction.Base.Cache;
+using Template.Application.Abstraction.Users;
+using Template.Application.Base.Cache;
+using Template.Application.Products;
+using Template.Application.Users;
+using Template.Application.Abstraction.Products;
+using Template.Application.Abstraction.Base;
+using Template.Application.Abstraction.Base.Search;
+using Template.Application.Base;
+using Template.Application.Base.Search;
+using Template.Application.Products.Mappings;
 
 namespace Template.Application;
 
