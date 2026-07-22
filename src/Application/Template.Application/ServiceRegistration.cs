@@ -1,20 +1,20 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
-using Template.Application.Abstraction.Base.Cache;
-using Template.Application.Abstraction.Users;
-using Template.Application.Base.Cache;
-using Template.Application.Products;
-using Template.Application.Users;
-using Template.Application.Abstraction.Products;
 using Template.Application.Abstraction.Base;
+using Template.Application.Abstraction.Base.Cache;
 using Template.Application.Abstraction.Base.Search;
+using Template.Application.Abstraction.Products;
+using Template.Application.Abstraction.Products.Dtos;
+using Template.Application.Abstraction.Users;
 using Template.Application.Base;
+using Template.Application.Base.Cache;
 using Template.Application.Base.Search;
+using Template.Application.Products;
 using Template.Application.Products.Mappings;
+using Template.Application.Users;
 using Template.Application.Users.Mappings;
 using Template.Domain.Entities;
-using Template.Application.Abstraction.Products.Dtos;
 
 namespace Template.Application;
 
@@ -31,7 +31,7 @@ public static class ServiceRegistration
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IElasticSearchService, ElasticSearchService>();
-        
+
         //add services -> will use reflection to register all services
         return services;
     }

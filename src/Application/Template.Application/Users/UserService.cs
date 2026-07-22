@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Template.Application.Abstraction.Users;
 using Template.Application.Abstraction.Users.Dtos;
-using Template.Shared.Exceptions;
 using Template.Domain.Entities.Identity;
 using Template.Infrastructure.Authentication;
 using Template.Shared.Base.Response;
 using Template.Shared.Base.Tokens;
+using Template.Shared.Exceptions;
 
 namespace Template.Application.Users;
 

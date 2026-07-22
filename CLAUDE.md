@@ -9,9 +9,15 @@ next feature — and the next project — will copy.
 ```bash
 docker compose up -d                     # Postgres, Redis, Elasticsearch, Jaeger, OTLP collector
 dotnet build Template.sln                # must stay at 0 warnings
-dotnet test Template.sln                 # must stay green
+dotnet test tests/Template.UnitTests     # fast, no dependencies
+dotnet test tests/Template.IntegrationTests   # boots the real app; needs Docker
 dotnet run --project src/Presentation/Template.WebAPI   # http://localhost:5000
 ```
+
+`dotnet test Template.sln` runs both suites. The integration suite starts a
+throwaway Postgres container via Testcontainers, so Docker must be running —
+it is what catches startup wiring, middleware order and migration failures
+that unit tests structurally cannot see.
 
 Frontend lives in `src/Presentation/Clients/template-web-ui`:
 
@@ -148,11 +154,13 @@ Before calling any change complete:
 1. `dotnet build Template.sln` — **0 errors, 0 warnings**. The build is
    warning-free today; a new warning is a regression, not background noise.
 2. `dotnet test Template.sln` — green, with tests covering the change.
-3. `python3 scripts/check-namespaces.py` — clean.
-4. Frontend touched? `npm run build` in the client directory (this is what
+3. `dotnet format Template.sln --verify-no-changes` — clean (CI fails on this).
+4. `python3 scripts/check-namespaces.py` — clean.
+5. Frontend touched? `npm run build` in the client directory (this is what
    typechecks; `npm run dev` does not).
-5. New config key? Added to `appsettings.json` (empty) and documented.
-6. New entity? Migration generated and committed.
+6. New config key? Added to `appsettings.json` (empty) and documented.
+7. New entity? Migration generated and committed.
+8. New endpoint? An integration test covering it, not only a mocked unit test.
 
 Report what you actually ran. If something fails and you did not fix it, say so.
 

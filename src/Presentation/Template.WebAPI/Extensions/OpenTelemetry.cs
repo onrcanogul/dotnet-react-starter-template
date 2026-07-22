@@ -1,6 +1,6 @@
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using OpenTelemetry.Metrics;
 
 namespace Template.WebAPI.Extensions;
 
@@ -16,6 +16,11 @@ public static class OpenTelemetry
     /// </summary>
     public static IServiceCollection AddOpenTelemetryServices(this IServiceCollection services, IConfiguration configuration)
     {
+        // OTEL_SDK_DISABLED is the spec-defined kill switch. Integration tests
+        // set it so their output is test results rather than console traces.
+        if (string.Equals(configuration["OTEL_SDK_DISABLED"], "true", StringComparison.OrdinalIgnoreCase))
+            return services;
+
         var otlpEndpoint = configuration["OTEL_EXPORTER_OTLP_ENDPOINT"];
         var useOtlp = !string.IsNullOrWhiteSpace(otlpEndpoint);
         var resource = ResourceBuilder.CreateDefault().AddService(ServiceName);

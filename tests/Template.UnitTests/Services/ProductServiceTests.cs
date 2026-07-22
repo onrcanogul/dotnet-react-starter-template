@@ -1,13 +1,13 @@
+using System.Linq.Expressions;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
-using Moq;
-using System.Linq.Expressions;
 using Microsoft.Extensions.Logging;
-using Template.Application.Products;
-using Template.Application.Products.Mappings;
+using Moq;
 using Template.Application.Abstraction.Base.Search;
 using Template.Application.Abstraction.Products.Dtos;
+using Template.Application.Products;
+using Template.Application.Products.Mappings;
 using Template.Domain.Entities;
 using Template.Persistence.Repository;
 using Template.Persistence.UnitOfWork;

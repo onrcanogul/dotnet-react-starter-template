@@ -1,0 +1,129 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+
+jobs:
+  backend:
+    name: Backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Cache NuGet
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/Directory.Packages.props') }}
+          restore-keys: nuget-${{ runner.os }}-
+
+      - run: dotnet restore Template.sln
+
+      # -warnaserror is the point: the build is warning-free, and a new warning
+      # is a regression rather than background noise. Restore warnings (NU1902
+      # and friends) surface known-vulnerable packages here too.
+      - name: Build
+        run: dotnet build Template.sln --configuration Release --no-restore -warnaserror
+
+      - name: Unit tests
+        run: dotnet test tests/Template.UnitTests --configuration Release --no-build
+
+      # Boots the real app against a throwaway Postgres container, so startup
+      # wiring, middleware order and the migrations are all exercised. Docker is
+      # available on GitHub-hosted runners.
+      - name: Integration tests
+        run: dotnet test tests/Template.IntegrationTests --configuration Release --no-build
+
+      - name: Check formatting
+        run: dotnet format Template.sln --verify-no-changes --no-restore
+
+  docker:
+    name: Docker images
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build API image
+        run: docker build -f src/Presentation/Template.WebAPI/Dockerfile -t template-api .
+
+      - name: Build web image
+        run: docker build -t template-web-ui src/Presentation/Clients/template-web-ui
+
+  architecture:
+    name: Architecture rules
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # namespace == assembly name + folder path
+      - run: python3 scripts/check-namespaces.py
+
+      # The Application layer must not know about Infrastructure or Persistence.
+      # Breaking this makes the layering decorative: use cases can no longer be
+      # tested without dragging a database along.
+      - name: Application layer stays inward-facing
+        run: |
+          if grep -qE 'Template\.(Infrastructure|Persistence)\.csproj' \
+               src/Application/Template.Application.Abstraction/*.csproj; then
+            echo "::error::Application.Abstraction must not reference outer layers."
+            exit 1
+          fi
+
+      # Shared sits at the bottom and depends on nothing in the solution.
+      - name: Shared depends on nothing
+        run: |
+          if grep -q 'ProjectReference' src/Shared/Template.Shared/*.csproj; then
+            echo "::error::Template.Shared must not reference other projects."
+            exit 1
+          fi
+
+      # appsettings.json ships with empty values; real secrets live in
+      # user-secrets or the environment.
+      - name: No committed secrets
+        run: |
+          if grep -qE '"(SecurityKey|Password)"\s*:\s*"[^"]+"' \
+               src/Presentation/Template.WebAPI/appsettings.json; then
+            echo "::error::appsettings.json contains a non-empty secret."
+            exit 1
+          fi
+
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/Presentation/Clients/template-web-ui
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: src/Presentation/Clients/template-web-ui/package-lock.json
+
+      - run: npm ci
+
+      # `npm run build` runs tsc -b first, so this is the typecheck.
+      - run: npm run build
+
+      - run: npm run lint
+
+      - name: Locales define the same keys
+        run: |
+          diff <(jq -S 'keys' public/locales/en/translation.json) \
+               <(jq -S 'keys' public/locales/tr/translation.json) \
+            || { echo "::error::en and tr translation keys differ."; exit 1; }

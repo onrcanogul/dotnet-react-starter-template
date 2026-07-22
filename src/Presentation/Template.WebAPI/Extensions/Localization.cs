@@ -1,6 +1,6 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Localization;
-using System.Globalization;
 
 namespace Template.WebAPI.Extensions;
 
@@ -26,7 +26,7 @@ public static class Localization
         app.UseRequestLocalization(new RequestLocalizationOptions
         {
             DefaultRequestCulture = new RequestCulture("en-US"),
-            SupportedCultures = new[] { new CultureInfo("en-US"), new CultureInfo("tr-TR") }, 
+            SupportedCultures = new[] { new CultureInfo("en-US"), new CultureInfo("tr-TR") },
             SupportedUICultures = new[] { new CultureInfo("en-US"), new CultureInfo("tr-TR") }
         });
         return app;

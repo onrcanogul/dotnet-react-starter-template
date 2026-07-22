@@ -1,4 +1,4 @@
-﻿namespace Template.Application.Abstraction.Users.Dtos;
+namespace Template.Application.Abstraction.Users.Dtos;
 public class RegisterDto
 {
     public string UserName { get; set; } = null!;

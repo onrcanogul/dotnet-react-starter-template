@@ -7,7 +7,7 @@ public static class Cors
         services.AddCors(options =>
         {
             options.AddPolicy("AllowAll",
-                corsPolicyBuilder =>  
+                corsPolicyBuilder =>
                 {
                     corsPolicyBuilder.AllowAnyOrigin()
                         .AllowAnyMethod()

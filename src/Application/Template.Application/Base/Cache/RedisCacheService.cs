@@ -1,6 +1,6 @@
+using System.Text.Json;
 using Microsoft.Extensions.Caching.Distributed;
 using StackExchange.Redis;
-using System.Text.Json;
 using Template.Application.Abstraction.Base.Cache;
 
 namespace Template.Application.Base.Cache;

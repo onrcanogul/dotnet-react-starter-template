@@ -8,15 +8,15 @@ namespace Template.Application.Abstraction.Base;
 public interface ICrudService<T, TDto>
     where T : BaseEntity where TDto : BaseDto
 {
-    Task<ServiceResponse<List<TDto>>> ToListAsync(Expression<Func<T, bool>>? predicate = null, 
+    Task<ServiceResponse<List<TDto>>> ToListAsync(Expression<Func<T, bool>>? predicate = null,
         Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
         Func<IQueryable<T>, IQueryable<T>>? includeProperties = null,
         bool disableTracking = true);
-    Task<ServiceResponse<TDto>> FirstOrDefaultAsync(Expression<Func<T, bool>>? predicate = null, 
+    Task<ServiceResponse<TDto>> FirstOrDefaultAsync(Expression<Func<T, bool>>? predicate = null,
         Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
         Func<IQueryable<T>, IQueryable<T>>? includeProperties = null,
         bool disableTracking = true);
-    Task<ServiceResponse<List<TDto>>> ToPagedListAsync(int page, int size,Expression<Func<T, bool>>? predicate = null, 
+    Task<ServiceResponse<List<TDto>>> ToPagedListAsync(int page, int size, Expression<Func<T, bool>>? predicate = null,
         Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
         Func<IQueryable<T>, IQueryable<T>>? includeProperties = null,
         bool disableTracking = true);

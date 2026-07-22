@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using Template.Application.Abstraction.Products;
-using Template.Application.Abstraction.Base.Search;
 using Template.Application.Abstraction.Base;
+using Template.Application.Abstraction.Base.Search;
+using Template.Application.Abstraction.Products;
 using Template.Application.Abstraction.Products.Dtos;
 using Template.Application.Base;
 using Template.Domain.Entities;

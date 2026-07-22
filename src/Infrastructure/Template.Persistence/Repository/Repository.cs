@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using Template.Persistence.Contexts;
 using Template.Shared.Base.Entities;
 

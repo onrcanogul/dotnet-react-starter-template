@@ -7,10 +7,10 @@ using Template.Shared.Base.Entities;
 
 namespace Template.Persistence.Contexts;
 
-public class TemplateDbContext(DbContextOptions<TemplateDbContext> options, IHttpContextAccessor httpContextAccessor) : IdentityDbContext<User,Role,Guid>(options)
+public class TemplateDbContext(DbContextOptions<TemplateDbContext> options, IHttpContextAccessor httpContextAccessor) : IdentityDbContext<User, Role, Guid>(options)
 {
     public DbSet<Product> Products { get; set; }
-    
+
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
         AuditingEntities();
@@ -21,13 +21,13 @@ public class TemplateDbContext(DbContextOptions<TemplateDbContext> options, IHtt
         AuditingEntities();
         return base.SaveChanges();
     }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
     }
-    
+
     /// <summary>
     /// Stamps the audit columns on every <see cref="BaseEntity"/> about to be
     /// written. This is the only place they are set - services and DTOs must

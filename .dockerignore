@@ -1,0 +1,16 @@
+**/bin/
+**/obj/
+**/node_modules/
+**/dist/
+.git/
+.github/
+.claude/
+.idea/
+.vs/
+.vscode/
+**/*.user
+**/.env
+**/.env.*
+**/appsettings.*.local.json
+docs/
+tests/

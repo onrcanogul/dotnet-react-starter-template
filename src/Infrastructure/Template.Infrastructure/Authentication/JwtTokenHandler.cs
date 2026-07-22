@@ -15,7 +15,7 @@ public class JwtTokenHandler(IConfiguration configuration) : IJwtTokenHandler
     {
         Token token = new();
         SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(configuration["Token:SecurityKey"]!));
-        SigningCredentials signingCredentials = new(securityKey,SecurityAlgorithms.HmacSha256);
+        SigningCredentials signingCredentials = new(securityKey, SecurityAlgorithms.HmacSha256);
         token.Expiration = DateTime.UtcNow.AddMinutes(15);
         var claims = new List<Claim>
         {

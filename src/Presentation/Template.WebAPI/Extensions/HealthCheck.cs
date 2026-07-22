@@ -14,7 +14,7 @@ public static class HealthCheck
             .AddHealthChecks()
             .AddNpgSql(postgresConnectionString, name: "postgresql")
             .AddRedis(redisConnectionString, name: "redis");
-        
+
         services.AddHealthChecksUI(setup =>
         {
             setup.AddHealthCheckEndpoint("Template App", "/health");
