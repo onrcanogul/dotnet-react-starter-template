@@ -4,35 +4,23 @@ import Home from "./pages/home/Home";
 import HeaderComponent from "./pages/home/components/Header";
 import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
-import {
-  loginWithRefreshtoken,
-  logout,
-} from "./pages/auth/services/auth-services";
-import { useDispatch, useSelector } from "react-redux";
+import { loginWithRefreshToken } from "./pages/auth/services/auth-services";
+import { useAppDispatch } from "./hooks";
 import { checkAuth } from "./features/authSlice";
-import { RootState } from "./store";
 
 function App() {
-  const dispatch = useDispatch();
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  );
+  const dispatch = useAppDispatch();
 
+  // Restore the session once, on mount. Depending on `isAuthenticated` here
+  // re-ran the refresh call every time auth state changed.
   useEffect(() => {
-    dispatch(checkAuth());
-    checkLogin();
-  }, [dispatch, isAuthenticated]);
-
-  const checkLogin = async () => {
-    const refreshToken = localStorage.getItem("refreshToken");
-    if (!isAuthenticated) {
-      const isSuccess = await loginWithRefreshtoken(refreshToken);
-      if (!isSuccess) {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-      }
-    }
-  };
+    const restoreSession = async () => {
+      dispatch(checkAuth());
+      await loginWithRefreshToken();
+      dispatch(checkAuth());
+    };
+    void restoreSession();
+  }, [dispatch]);
 
   return (
     <Router>

@@ -51,17 +51,50 @@ public class ProductControllerTests
     }
 
     [Fact]
-    public async Task Create_ShouldReturnCreatedStatus()
+    public async Task Create_ShouldIndexTheProduct_AndReturnCreatedStatus()
     {
         var dto = new ProductDto { Name = "Yeni" };
-        var response = ServiceResponse<ProductDto>.Success(dto, StatusCodes.Status201Created);
+        var response = ServiceResponse<NoContent>.Success(StatusCodes.Status201Created);
 
-        _productServiceMock.Setup(s => s.CreateAsync(dto)).ReturnsAsync(response);
+        _productServiceMock.Setup(s => s.CreateIndexedAsync(dto)).ReturnsAsync(response);
 
         var result = await _controller.Create(dto);
 
+        // Creating must also index for search - a plain CreateAsync would leave
+        // the product invisible to the search endpoints below.
+        _productServiceMock.Verify(s => s.CreateIndexedAsync(dto), Times.Once);
         var objectResult = result as ObjectResult;
         objectResult!.StatusCode.Should().Be(StatusCodes.Status201Created);
+    }
+
+    [Fact]
+    public async Task Search_ShouldReturnMatchesByName()
+    {
+        var dtos = new List<ProductDto> { new() { Name = "Kahve" } };
+        var response = ServiceResponse<List<ProductDto>>.Success(dtos, StatusCodes.Status200OK);
+
+        _productServiceMock.Setup(s => s.SearchByNameAsync("Kahve")).ReturnsAsync(response);
+
+        var result = await _controller.Search("Kahve");
+
+        var objectResult = result as ObjectResult;
+        objectResult!.StatusCode.Should().Be(StatusCodes.Status200OK);
+        (objectResult.Value as ServiceResponse<List<ProductDto>>)!.Data.Should().HaveCount(1);
+    }
+
+    [Fact]
+    public async Task Search_ShouldReturnMatchesByNameAndDescription()
+    {
+        var dtos = new List<ProductDto> { new() { Name = "Kahve", Description = "Filtre" } };
+        var response = ServiceResponse<List<ProductDto>>.Success(dtos, StatusCodes.Status200OK);
+
+        _productServiceMock.Setup(s => s.SearchAsync("Kahve", "Filtre")).ReturnsAsync(response);
+
+        var result = await _controller.Search("Kahve", "Filtre");
+
+        var objectResult = result as ObjectResult;
+        objectResult!.StatusCode.Should().Be(StatusCodes.Status200OK);
+        (objectResult.Value as ServiceResponse<List<ProductDto>>)!.Data.Should().HaveCount(1);
     }
 
     [Fact]

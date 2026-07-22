@@ -1,85 +1,69 @@
 import api from "../../../api/axiosInstance";
+import { apiErrorMessage } from "../../../api/apiError";
+import {
+  clearTokens,
+  getAccessToken,
+  getRefreshToken,
+  setTokens,
+} from "../../../api/tokenStorage";
 import ToastrService from "../../../utils/toastr";
 import i18n from "../../../utils/i18n";
 import { jwtDecode } from "jwt-decode";
-import { DecodedToken } from "../../../domain/token/token";
+import { DecodedToken, Token } from "../../../domain/token/token";
 
-// Login
-export const login = async (usernameOrEmail: string, password: string) => {
-  try {
-    const response = await api.post("/user/login", {
-      usernameOrEmail,
-      password,
-    });
-    localStorage.setItem("accessToken", response.data.data.accessToken);
-    localStorage.setItem("refreshToken", response.data.data.refreshToken);
-    ToastrService.success(i18n.t("successLogin"));
-    return response.data.data;
-  } catch (error) {
-    console.error("Login error:", error);
-    ToastrService.error(i18n.t("errorLogin"));
-    return null;
-  }
-};
+/**
+ * Auth calls that are not part of the Redux flow.
+ *
+ * Signing in and out live in `features/authSlice` - keeping a second copy here
+ * is how the two drifted apart before.
+ */
 
-// Check Authentication
 export const isAuthenticated = (): boolean => {
+  const token = getAccessToken();
+  if (!token) return false;
   try {
-    const token = localStorage.getItem("accessToken");
-    if (!token) return false;
-
-    const decoded: DecodedToken = jwtDecode<DecodedToken>(token);
-    const currentTime = Math.floor(Date.now() / 1000);
-
-    return decoded.exp > currentTime;
-  } catch (error) {
-    console.error("Auth check error:", error);
+    return jwtDecode<DecodedToken>(token).exp > Math.floor(Date.now() / 1000);
+  } catch {
     return false;
   }
 };
 
-// Get Current User
 export const getCurrentUser = () => {
+  const token = getAccessToken();
+  if (!token) return null;
   try {
-    const token = localStorage.getItem("accessToken");
-    if (!token) return null;
-
-    const decoded: DecodedToken = jwtDecode<DecodedToken>(token);
+    const decoded = jwtDecode<DecodedToken>(token);
     return { userId: decoded.userId, username: decoded.name };
-  } catch (error) {
-    console.error("Error decoding token:", error);
+  } catch {
     return null;
   }
 };
 
-// Logout
-export const logout = async () => {
+/**
+ * Trades the stored refresh token for a fresh pair on start-up.
+ * Returns whether the session was restored; the caller decides what to do next.
+ */
+export const loginWithRefreshToken = async (): Promise<boolean> => {
+  const refreshToken = getRefreshToken();
+  if (!refreshToken) return false;
+
   try {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    ToastrService.success(i18n.t("logoutSuccess"));
-  } catch (error) {
-    console.error("Logout error:", error);
-    ToastrService.error(i18n.t("logoutError"));
+    // The token goes in the body, never the URL - paths end up in proxy and
+    // access logs.
+    const response = await api.post<{ data: Token }>("/user/refresh-token-login", {
+      refreshToken,
+    });
+    const { accessToken, refreshToken: renewed } = response.data.data;
+    setTokens(accessToken, renewed);
+    return true;
+  } catch {
+    clearTokens();
+    return false;
   }
 };
 
-// Login with Refresh Token
-export const loginWithRefreshtoken = async (refreshToken: string) => {
-  try {
-    const response = await api.post(
-      `/user/refresh-token-login/${refreshToken}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Refresh token login error:", error);
-    return null;
-  }
-};
-
-// Register
 export const register = async (
-  username: string,
+  userName: string,
   fullName: string,
   email: string,
   password: string,
@@ -87,17 +71,16 @@ export const register = async (
 ) => {
   try {
     const response = await api.post("/user/register", {
-      username,
+      userName,
       fullName,
       email,
       password,
       confirmPassword,
     });
     ToastrService.success(i18n.t("registerSuccess"));
-    return response.data.data;
+    return response.data;
   } catch (error) {
-    console.error("Register error:", error);
-    ToastrService.error(error.response.data.errors[0]);
+    ToastrService.error(apiErrorMessage(error, i18n.t("registerError")));
     return null;
   }
 };

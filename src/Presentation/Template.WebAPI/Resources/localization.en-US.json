@@ -1,7 +1,7 @@
 {
-  "Hello": "Hello",
-  "Welcome": "Welcome",
-  "NotFound": "Resource Not Found",
-  "UserNotFound": "User Not Found",
-  "RegisterFailure": "Error occured while registering"
+  "NotFound": "Resource not found",
+  "InvalidCredentials": "Username or password is incorrect",
+  "InvalidRefreshToken": "Your session has expired, please sign in again",
+  "PasswordsDoNotMatch": "Passwords do not match",
+  "UserAlreadyExists": "An account with this username or email already exists"
 }

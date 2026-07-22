@@ -1,7 +1,7 @@
 {
-  "Hello": "Merhaba",
-  "Welcome": "Hoş geldiniz",
-  "NotFound": "Veri bulunamadı",
-  "UserNotFound": "Kullanıcı bulunamadı",
-  "RegisterFailure": "Kayıt olurken bir hata meydana geldi"
+  "NotFound": "Kayıt bulunamadı",
+  "InvalidCredentials": "Kullanıcı adı veya şifre hatalı",
+  "InvalidRefreshToken": "Oturumunuzun süresi doldu, lütfen tekrar giriş yapın",
+  "PasswordsDoNotMatch": "Şifreler eşleşmiyor",
+  "UserAlreadyExists": "Bu kullanıcı adı veya e-posta ile bir hesap zaten var"
 }

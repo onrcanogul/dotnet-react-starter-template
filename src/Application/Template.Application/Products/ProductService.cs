@@ -30,7 +30,7 @@ public class ProductService(
 {
     private const string IndexName = "products";
 
-    public async Task<ServiceResponse<List<ProductDto>>> SearchProducts(string name, string description)
+    public async Task<ServiceResponse<List<ProductDto>>> SearchAsync(string name, string description)
     {
         var filters = new Dictionary<string, string> { { "name", name }, { "description", description } };
         var result = await elasticSearchService.MultiFieldFilterSearchAsync<Product>(IndexName, filters);
@@ -38,14 +38,14 @@ public class ProductService(
         return ServiceResponse<List<ProductDto>>.Success(Mapper.ToDtoList(result), StatusCodes.Status200OK);
     }
 
-    public async Task<ServiceResponse<List<ProductDto>>> SearchProducts(string name)
+    public async Task<ServiceResponse<List<ProductDto>>> SearchByNameAsync(string name)
     {
         var results = await elasticSearchService.SearchAsync<Product>(IndexName, name, "name");
         logger.LogInformation("Elasticsearch returned {Count} results for keyword '{Keyword}'", results.Count, name);
         return ServiceResponse<List<ProductDto>>.Success(Mapper.ToDtoList(results), StatusCodes.Status200OK);
     }
 
-    public async Task<ServiceResponse<NoContent>> CreateProduct(ProductDto product)
+    public async Task<ServiceResponse<NoContent>> CreateIndexedAsync(ProductDto product)
     {
         var productEntity = Mapper.ToEntity(product);
         productEntity.Id = Guid.NewGuid();

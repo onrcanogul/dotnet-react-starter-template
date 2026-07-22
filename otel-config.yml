@@ -2,24 +2,31 @@ receivers:
   otlp:
     protocols:
       grpc:
+        endpoint: 0.0.0.0:4317
       http:
-
-exporters:
-  logging:
-    loglevel: debug
-  jaeger:
-    endpoint: "jaeger:14250"
+        endpoint: 0.0.0.0:4318
 
 processors:
   batch:
+
+exporters:
+  # "logging" was renamed to "debug"; the old name no longer loads.
+  debug:
+    verbosity: detailed
+  # The standalone "jaeger" exporter was removed from the Collector.
+  # Jaeger ingests OTLP directly now (COLLECTOR_OTLP_ENABLED in compose).
+  otlp/jaeger:
+    endpoint: jaeger:4317
+    tls:
+      insecure: true
 
 service:
   pipelines:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging, jaeger]
+      exporters: [debug, otlp/jaeger]
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging]
+      exporters: [debug]

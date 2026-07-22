@@ -28,27 +28,37 @@ public class TemplateDbContext(DbContextOptions<TemplateDbContext> options, IHtt
         modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
     }
     
+    /// <summary>
+    /// Stamps the audit columns on every <see cref="BaseEntity"/> about to be
+    /// written. This is the only place they are set - services and DTOs must
+    /// never write them.
+    /// </summary>
     private void AuditingEntities()
     {
-        var dataList = ChangeTracker.Entries<BaseEntity>().ToList();
+        var now = DateTime.UtcNow;
+        var currentUser = GetCurrentUsername() ?? SystemUser;
 
-        foreach (var data in dataList)
+        foreach (var entry in ChangeTracker.Entries<BaseEntity>())
         {
-            var baseEntity = data.Entity;
-            switch (data.State)
+            var entity = entry.Entity;
+            switch (entry.State)
             {
                 case EntityState.Modified:
-                    baseEntity.UpdatedDate = DateTime.UtcNow;
-                    baseEntity.UpdatedBy = "oogul";
+                    entity.UpdatedDate = now;
+                    entity.UpdatedBy = currentUser;
                     break;
                 case EntityState.Added:
-                    baseEntity.CreatedDate = DateTime.UtcNow;
-                    baseEntity.UpdatedDate = DateTime.UtcNow;
-                    baseEntity.CreatedBy = "oogul";
+                    entity.CreatedDate = now;
+                    entity.UpdatedDate = now;
+                    entity.CreatedBy = currentUser;
                     break;
             }
         }
     }
+
+    /// <summary>Attributed to writes with no signed-in user: migrations, seeding, background jobs.</summary>
+    private const string SystemUser = "system";
+
     private string? GetCurrentUsername()
-        => httpContextAccessor.HttpContext?.User.Identity!.Name;
+        => httpContextAccessor.HttpContext?.User.Identity?.Name;
 }

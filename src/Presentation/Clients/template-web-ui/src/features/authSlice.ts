@@ -1,12 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { jwtDecode } from "jwt-decode";
 import api from "../api/axiosInstance";
+import { clearTokens, getAccessToken, setTokens } from "../api/tokenStorage";
 import i18n from "../utils/i18n";
 import ToastrService from "../utils/toastr";
-import { DecodedToken } from "../domain/token/token";
-import { jwtDecode } from "jwt-decode";
+import { DecodedToken, Token } from "../domain/token/token";
+import { apiErrorMessage } from "../api/apiError";
+
+interface AuthUser {
+  userId: string;
+  username: string;
+}
 
 interface AuthState {
-  user: { userId: string; username: string } | null;
+  user: AuthUser | null;
   isAuthenticated: boolean;
   loading: boolean;
 }
@@ -17,72 +24,60 @@ const initialState: AuthState = {
   loading: false,
 };
 
+/**
+ * The identity lives inside the access token, so it is read from there rather
+ * than from the login response body - which carries the token pair, not a user.
+ */
+const readUser = (accessToken: string): AuthUser | null => {
+  try {
+    const decoded = jwtDecode<DecodedToken>(accessToken);
+    if (decoded.exp <= Math.floor(Date.now() / 1000)) return null;
+    return { userId: decoded.userId, username: decoded.name };
+  } catch {
+    return null;
+  }
+};
+
 export const login = createAsyncThunk(
   "auth/login",
   async (
-    {
-      usernameOrEmail,
-      password,
-    }: { usernameOrEmail: string; password: string },
+    credentials: { usernameOrEmail: string; password: string },
     thunkAPI
   ) => {
     try {
-      const response = await api.post("/user/login", {
-        usernameOrEmail,
-        password,
-      });
-      debugger;
-      localStorage.setItem("accessToken", response.data.data.accessToken);
-      localStorage.setItem("refreshToken", response.data.data.refreshToken);
+      const response = await api.post<{ data: Token }>("/user/login", credentials);
+      const { accessToken, refreshToken } = response.data.data;
+      setTokens(accessToken, refreshToken);
       ToastrService.success(i18n.t("loginSuccess"));
-      return response.data.data;
+      return accessToken;
     } catch (error) {
-      console.error("Login error:", error);
-      ToastrService.error(i18n.t("loginError"));
-      return thunkAPI.rejectWithValue(error.response?.data || "Login failed");
+      const message = apiErrorMessage(error, i18n.t("loginError"));
+      ToastrService.error(message);
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
 
-export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
-  try {
-    await api.post("/auth/logout");
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    ToastrService.success(i18n.t("logoutSuccess"));
-    return true;
-  } catch (error) {
-    console.error("Logout error:", error);
-    ToastrService.error(i18n.t("logoutError"));
-    return thunkAPI.rejectWithValue(error.response?.data || "Logout failed");
-  }
+/**
+ * Access tokens are stateless, so signing out is purely local. There is no
+ * server call to make - an earlier version posted to /auth/logout, which does
+ * not exist, and so left the user signed in whenever it 404'd.
+ */
+export const logout = createAsyncThunk("auth/logout", async () => {
+  clearTokens();
+  ToastrService.success(i18n.t("logoutSuccess"));
 });
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    /** Rehydrates state from the stored token on page load. */
     checkAuth: (state) => {
-      const token = localStorage.getItem("accessToken");
-      if (token) {
-        try {
-          const decoded: DecodedToken = jwtDecode<DecodedToken>(token);
-          const currentTime = Math.floor(Date.now() / 1000);
-          if (decoded.exp > currentTime) {
-            state.isAuthenticated = true;
-            state.user = { userId: decoded.userId, username: decoded.name };
-          } else {
-            state.isAuthenticated = false;
-            state.user = null;
-          }
-        } catch (error) {
-          state.isAuthenticated = false;
-          state.user = null;
-        }
-      } else {
-        state.isAuthenticated = false;
-        state.user = null;
-      }
+      const token = getAccessToken();
+      const user = token ? readUser(token) : null;
+      state.user = user;
+      state.isAuthenticated = user !== null;
     },
   },
   extraReducers: (builder) => {
@@ -92,15 +87,13 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
-        state.isAuthenticated = true;
-        state.user = {
-          userId: action.payload.userId,
-          username: action.payload.username,
-        };
+        state.user = readUser(action.payload);
+        state.isAuthenticated = state.user !== null;
       })
       .addCase(login.rejected, (state) => {
         state.loading = false;
         state.isAuthenticated = false;
+        state.user = null;
       })
       .addCase(logout.fulfilled, (state) => {
         state.isAuthenticated = false;

@@ -24,5 +24,6 @@
   "registerError": "Kayıt olurken hata meydana geldi",
   "passwordMismatch": "Şifreler eşleşmiyor",
   "noAccount": "Bir hesabınız yok mu?",
-  "alreadyHaveAccount": "Zaten bir hesabınız var mı?"
+  "alreadyHaveAccount": "Zaten bir hesabınız var mı?",
+  "logoutSuccess": "Çıkış yapıldı"
 }

@@ -4,6 +4,9 @@
         <!-- XML docs feed Swagger; 1591 = "missing XML comment", not worth failing on. -->
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);1591</NoWarn>
+        <!-- Secrets (JWT key, real connection strings) live outside the repo.
+             See CLAUDE.md for the `dotnet user-secrets set` commands. -->
+        <UserSecretsId>template-webapi-75f1128a-1064-4d5a-a371-8f2dac6e1a86</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
